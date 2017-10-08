@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BattlegroundsCore">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Compiled Plugins/BattlegroundsCore.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

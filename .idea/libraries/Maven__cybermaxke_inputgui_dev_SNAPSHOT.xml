@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: cybermaxke:inputgui:dev-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/cybermaxke/inputgui/dev-SNAPSHOT/inputgui-dev-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/cybermaxke/inputgui/dev-SNAPSHOT/inputgui-dev-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/cybermaxke/inputgui/dev-SNAPSHOT/inputgui-dev-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,5 @@
+main: com.battlegroundspvp.BattlegroundsKitPvP
+name: BattlegroundsKitPvP
+author: GamerBah
+version: 0.0.1a
+depend: [ProtocolLib, BattlegroundsCore]
