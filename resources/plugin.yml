@@ -1,5 +1,12 @@
 main: com.battlegroundspvp.BattlegroundsKitPvP
 name: BattlegroundsKitPvP
 author: GamerBah
-version: 0.0.1a
+version: 0.0.2a
 depend: [ProtocolLib, BattlegroundsCore]
+commands:
+  spectate:
+    description: Puts player into spectate mode
+  team:
+    description: Teams
+  spawn:
+    description: Back to spawn!
