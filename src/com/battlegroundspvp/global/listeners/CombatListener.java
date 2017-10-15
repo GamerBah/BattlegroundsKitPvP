@@ -1,6 +1,9 @@
 package com.battlegroundspvp.global.listeners;
 
+import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
+import com.battlegroundspvp.administration.data.GameProfile;
+import com.battlegroundspvp.administration.data.Rank;
 import com.battlegroundspvp.runnables.UpdateRunnable;
 import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
@@ -8,7 +11,9 @@ import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.SmallFireball;
@@ -44,6 +49,22 @@ public class CombatListener implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.isCancelled()) {
             return;
+        }
+
+        if (event.getDamager() instanceof Player && event.getEntity() instanceof ArmorStand) {
+            Player player = (Player) event.getDamager();
+            GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
+
+            if (gameProfile.hasRank(Rank.OWNER)) {
+                if (player.getGameMode() == GameMode.CREATIVE) {
+                    event.setCancelled(false);
+                    event.getEntity().remove();
+                } else {
+                    event.setCancelled(true);
+                }
+            } else {
+                event.setCancelled(true);
+            }
         }
 
         if (event.getDamager() instanceof Player && event.getEntity() instanceof Player) {

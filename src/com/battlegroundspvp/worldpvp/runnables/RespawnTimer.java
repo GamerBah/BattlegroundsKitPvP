@@ -1,4 +1,4 @@
-package com.battlegroundspvp.worldpvp.utils;
+package com.battlegroundspvp.worldpvp.runnables;
 /* Created by GamerBah on 8/23/2017 */
 
 import com.battlegroundspvp.BattlegroundsCore;

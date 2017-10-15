@@ -1,4 +1,4 @@
-package com.battlegroundspvp.worldpvp.utils;
+package com.battlegroundspvp.worldpvp.runnables;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
@@ -6,6 +6,7 @@ import com.battlegroundspvp.administration.commands.FreezeCommand;
 import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.DiscordBot;
 import com.battlegroundspvp.utils.enums.EventSound;
+import com.battlegroundspvp.worldpvp.utils.PluginUtil;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;

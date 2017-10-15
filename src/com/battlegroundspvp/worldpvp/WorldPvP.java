@@ -33,8 +33,9 @@ public class WorldPvP {
         pluginManager.registerEvents(new PlayerItemDrop(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerItemPickup(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerSwapHands(), BattlegroundsKitPvP.getInstance());
-        pluginManager.registerEvents(new PlayerInteract(), BattlegroundsKitPvP.getInstance());
+        pluginManager.registerEvents(new PlayerInteractItem(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerMove(BattlegroundsKitPvP.getInstance()), BattlegroundsKitPvP.getInstance());
+        pluginManager.registerEvents(new PlayerInteractEntity(), BattlegroundsKitPvP.getInstance());
     }
 
     public void registerCommands() {

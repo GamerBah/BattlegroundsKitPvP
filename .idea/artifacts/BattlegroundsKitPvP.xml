@@ -4,12 +4,7 @@
     <root id="archive" name="BattlegroundsKitPvP.jar">
       <element id="module-output" name="BattlegroundsKitPvP" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/de/Herbystar/TTA/3.8/TTA-3.8.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/javax/websocket/javax.websocket-api/1.0/javax.websocket-api-1.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/tyrus/tyrus-client/1.1/tyrus-client-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/tyrus/tyrus-core/1.1/tyrus-core-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/tyrus/tyrus-server/1.1/tyrus-server-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/tyrus/tyrus-spi/1.1/tyrus-spi-1.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/glassfish/tyrus/tyrus-websocket-core/1.1/tyrus-websocket-core-1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../Libraries/citizensapi-2.0.22-SNAPSHOT.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

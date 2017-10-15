@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="authlib-1.5.16-sources">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../Libraries/authlib-1.5.16-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

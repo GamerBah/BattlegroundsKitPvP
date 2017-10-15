@@ -10,3 +10,5 @@ commands:
     description: Teams
   spawn:
     description: Back to spawn!
+  npc:
+    description:

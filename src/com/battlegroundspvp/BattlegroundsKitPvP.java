@@ -2,6 +2,7 @@ package com.battlegroundspvp;
 /* Created by GamerBah on 10/8/2017 */
 
 import com.battlegroundspvp.administration.data.GameProfile;
+import com.battlegroundspvp.commands.NPCCommand;
 import com.battlegroundspvp.global.listeners.CombatListener;
 import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
@@ -13,10 +14,13 @@ import com.battlegroundspvp.utils.inventories.ItemBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
+import com.battlegroundspvp.worldpvp.runnables.UpdateRunnable;
 import com.battlegroundspvp.worldpvp.utils.KDRatio;
-import com.battlegroundspvp.worldpvp.utils.UpdateRunnable;
+import com.battlegroundspvp.worldpvp.utils.npcs.QuartermasterTrait;
 import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
+import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.trait.TraitInfo;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -59,7 +63,7 @@ public class BattlegroundsKitPvP extends JavaPlugin {
 
         registerCommands();
         registerEvents();
-
+        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(QuartermasterTrait.class));
     }
 
     public void onDisable() {
@@ -74,7 +78,7 @@ public class BattlegroundsKitPvP extends JavaPlugin {
     }
 
     private void registerCommands() {
-
+        getCommand("npc").setExecutor(new NPCCommand());
         worldPvP.registerCommands();
         unranked.registerCommands();
         ranked.registerCommands();

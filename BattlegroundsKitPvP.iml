@@ -11,6 +11,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="BattlegroundsCore" level="project" />
+    <orderEntry type="library" name="citizensapi-2.0.22-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" level="project" />
@@ -28,16 +29,6 @@
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.comphenix.executors:BukkitExecutors:1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: de.Herbystar:TTA:3.8" level="project" />
-    <orderEntry type="library" name="Maven: javax.websocket:javax.websocket-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-server:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-core:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-spi:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-websocket-core:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-client:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.tyrus:tyrus-container-grizzly:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-framework:2.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http-server:2.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-http:2.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.grizzly:grizzly-rcm:2.3.3" level="project" />
+    <orderEntry type="library" name="authlib-1.5.16-sources" level="project" />
   </component>
 </module>
