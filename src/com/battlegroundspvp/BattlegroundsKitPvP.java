@@ -2,19 +2,11 @@ package com.battlegroundspvp;
 /* Created by GamerBah on 10/8/2017 */
 
 import com.battlegroundspvp.administration.data.GameProfile;
-import com.battlegroundspvp.commands.NPCCommand;
 import com.battlegroundspvp.global.listeners.CombatListener;
-import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.global.utils.kits.KitAbility;
 import com.battlegroundspvp.ranked.Ranked;
 import com.battlegroundspvp.unranked.Unranked;
-import com.battlegroundspvp.utils.ColorBuilder;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
-import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
-import com.battlegroundspvp.worldpvp.runnables.UpdateRunnable;
 import com.battlegroundspvp.worldpvp.utils.KDRatio;
 import com.battlegroundspvp.worldpvp.utils.npcs.QuartermasterTrait;
 import de.Herbystar.TTA.TTA_Methods;
@@ -22,10 +14,7 @@ import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.trait.TraitInfo;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -58,15 +47,12 @@ public class BattlegroundsKitPvP extends JavaPlugin {
         worldPvP = new WorldPvP();
         unranked = new Unranked();
         ranked = new Ranked();
-        getServer().getScheduler().scheduleSyncRepeatingTask(this, new UpdateRunnable(this), 120, 120);
         update();
 
-        registerCommands();
         registerEvents();
-        CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(QuartermasterTrait.class));
-    }
 
-    public void onDisable() {
+        if (CitizensAPI.getTraitFactory().getTrait(QuartermasterTrait.class) != null)
+            CitizensAPI.getTraitFactory().registerTrait(TraitInfo.create(QuartermasterTrait.class));
     }
 
     private void registerEvents() {
@@ -77,38 +63,6 @@ public class BattlegroundsKitPvP extends JavaPlugin {
         ranked.registerEvents(pluginManager);
     }
 
-    private void registerCommands() {
-        getCommand("npc").setExecutor(new NPCCommand());
-        worldPvP.registerCommands();
-        unranked.registerCommands();
-        ranked.registerCommands();
-    }
-
-    public static void runRespawn(PlayerRespawnEvent event) {
-        Player player = event.getPlayer();
-        player.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(20);
-
-        if (!WorldPvP.getNoFall().contains(player))
-            WorldPvP.getNoFall().add(player);
-
-        if (KitAbility.getPlayerStatus().containsKey(player.getName())) {
-            KitAbility.getPlayerStatus().remove(player.getName());
-            player.setExp(0);
-            player.setLevel(0);
-        }
-
-        player.getInventory().setItem(0, new ItemBuilder(Material.NETHER_STAR)
-                .name(new ColorBuilder(ChatColor.AQUA).bold().create() + "Kit Selector" + ChatColor.GRAY + " (Right-Click)")
-                .lore(ChatColor.GRAY + "Choose which kit you'll use!"));
-
-        if (KitManager.getPreviousKit().containsKey(player.getUniqueId())) {
-            Kit kit = KitManager.getPreviousKit().get(player.getUniqueId());
-            player.getInventory().setItem(1, new ItemBuilder(Material.BOOK)
-                    .name(new ColorBuilder(ChatColor.GREEN).bold().create() + "Previous Kit: " + kit.getRarity().getColor() + (kit.getRarity() == Rarity.EPIC || kit.getRarity() == Rarity.LEGENDARY ?
-                            "" + ChatColor.BOLD : "") + kit.getName() + ChatColor.GRAY + " (Right-Click)")
-                    .lore(ChatColor.GRAY + "Equips your previous kit"));
-        }
-    }
 
     public static void update() {
         ScoreboardListener scoreboardListener = new ScoreboardListener();
@@ -130,8 +84,5 @@ public class BattlegroundsKitPvP extends JavaPlugin {
         }
     }
 
-    public static void runProtection() {
-
-    }
 
 }

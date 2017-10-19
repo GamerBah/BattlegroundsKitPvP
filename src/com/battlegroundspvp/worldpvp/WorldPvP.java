@@ -2,6 +2,7 @@ package com.battlegroundspvp.worldpvp;
 /* Created by GamerBah on 10/8/2017 */
 
 import com.battlegroundspvp.BattlegroundsKitPvP;
+import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.worldpvp.commands.SpawnCommand;
 import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import com.battlegroundspvp.worldpvp.commands.TeamCommand;
@@ -11,16 +12,22 @@ import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
 import com.battlegroundspvp.worldpvp.listeners.SpawnProtectListener;
 import com.battlegroundspvp.worldpvp.playerevents.*;
 import lombok.Getter;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class WorldPvP {
 
     @Getter
     private static List<Player> noFall = new ArrayList<>();
+    @Getter
+    private static HashMap<Player, Integer> rolling = new HashMap<>();
+    @Getter
+    private static ArrayList<Kit> kitRewards = new ArrayList<>();
 
     public void registerEvents(PluginManager pluginManager) {
         pluginManager.registerEvents(new ItemSpawnListener(), BattlegroundsKitPvP.getInstance());
@@ -33,15 +40,16 @@ public class WorldPvP {
         pluginManager.registerEvents(new PlayerItemDrop(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerItemPickup(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerSwapHands(), BattlegroundsKitPvP.getInstance());
-        pluginManager.registerEvents(new PlayerInteractItem(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerMove(BattlegroundsKitPvP.getInstance()), BattlegroundsKitPvP.getInstance());
-        pluginManager.registerEvents(new PlayerInteractEntity(), BattlegroundsKitPvP.getInstance());
     }
 
-    public void registerCommands() {
-        BattlegroundsKitPvP.getInstance().getCommand("spectate").setExecutor(new SpectateCommand());
-        BattlegroundsKitPvP.getInstance().getCommand("team").setExecutor(new TeamCommand(BattlegroundsKitPvP.getInstance()));
-        BattlegroundsKitPvP.getInstance().getCommand("spawn").setExecutor(new SpawnCommand(BattlegroundsKitPvP.getInstance()));
+    public static HashMap<String, CommandExecutor> getCommands() {
+        HashMap<String, CommandExecutor> commands = new HashMap<>();
+        commands.put("spectate", new SpectateCommand());
+        commands.put("team", new TeamCommand(BattlegroundsKitPvP.getInstance()));
+        commands.put("spawn", new SpawnCommand(BattlegroundsKitPvP.getInstance()));
+
+        return commands;
     }
 
 }

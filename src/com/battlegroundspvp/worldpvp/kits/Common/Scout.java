@@ -5,6 +5,7 @@ import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +42,7 @@ public class Scout extends Kit {
         player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(Rarity.COMMON.getColor() + "Scout Leggings").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
         player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(Rarity.COMMON.getColor() + "Scout Boots").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
-        ItemStack sword = new ItemStack(new ItemBuilder(Material.GOLD_SWORD).name(Rarity.COMMON.getColor() + "Scout Sword").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack sword = new ItemStack(new ItemBuilder(Material.GOLD_SWORD).name(Rarity.COMMON.getColor() + "Scout Sword").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE).enchantment(Enchantment.DAMAGE_ALL));
 
         player.getInventory().addItem(sword);
     }

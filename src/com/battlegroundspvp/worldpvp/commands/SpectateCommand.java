@@ -41,13 +41,13 @@ public class SpectateCommand implements CommandExecutor {
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, true, true));
             player.setAllowFlight(true);
             player.setFlying(true);
-            TTA_Methods.sendTitle(player, ChatColor.GREEN + "You are now spectating!", 5, 30, 10, null, 0, 0, 0);
+            TTA_Methods.sendTitle(player, ChatColor.GREEN + "You are now spectating!", 5, 30, 10, null, 5, 30, 10);
             return true;
         }
 
         if (spectating.contains(player)) {
             spectating.remove(player);
-            TTA_Methods.sendTitle(player, ChatColor.GREEN + "You are no longer spectating!", 5, 30, 10, null, 0, 0, 0);
+            TTA_Methods.sendTitle(player, ChatColor.GREEN + "You are no longer spectating!", 5, 30, 10, null, 5, 30, 10);
             return true;
         }
 

@@ -71,6 +71,13 @@ public class CombatListener implements Listener {
             Player damager = (Player) event.getDamager();
             Player damaged = (Player) event.getEntity();
 
+
+            if ((damaged.getLocation().getBlockY() >= 94
+                    || (damager.getLocation().getBlockY() >= 94))) {
+                event.setCancelled(true);
+                return;
+            }
+
             /*if (HackPreventionTools.getTargetPlayer(damager, 4) == null) {
                 event.setCancelled(true);
                 return;
@@ -88,7 +95,7 @@ public class CombatListener implements Listener {
             checkTagged(damager, damaged);
 
             if (damager.getInventory().getItemInMainHand().getType().equals(Material.POISONOUS_POTATO)) {
-                damaged.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 1, true, true));
+                damaged.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 2, true, true));
             }
         }
 
@@ -99,7 +106,8 @@ public class CombatListener implements Listener {
                 Player damager = (Player) shooter;
                 Player damaged = (Player) event.getEntity();
 
-                if (damaged.getLocation().distance(damaged.getWorld().getSpawnLocation()) <= 12) {
+                if ((damaged.getLocation().getBlockY() >= 94
+                        || (damager.getLocation().getBlockY() >= 94))) {
                     event.setCancelled(true);
                     return;
                 }
@@ -237,6 +245,11 @@ public class CombatListener implements Listener {
     public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
+
+            if (player.getLocation().getBlockY() >= 94) {
+                event.setCancelled(true);
+                return;
+            }
 
             if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
                 if (WorldPvP.getNoFall().contains(player)) {

@@ -70,17 +70,18 @@ public class Ninja extends Kit {
         if (KitManager.isPlayerInKit(player, this)) {
             if (player.getInventory().getItemInMainHand().getType() == Material.IRON_SWORD) {
                 if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
-                    if (player.getLocation().distance(player.getWorld().getSpawnLocation()) <= 12) {
+                    if (player.getLocation().getBlockY() >= 94)
                         return;
-                    }
+
                     if (!kitAbility.tryUse(player)) {
                         player.playSound(player.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 1, 1);
                         return;
                     }
+
                     for (Player players : Bukkit.getServer().getOnlinePlayers()) {
                         players.hidePlayer(player);
                         Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
-                            if (KitAbility.getPlayerStatus().containsKey(player.getName())) {
+                            if (KitAbility.getPlayerStatus().containsKey(player)) {
                                 ParticleEffect.SMOKE_LARGE.display(0.3F, 0.5F, 0.3F, 0, 70, player.getLocation().add(0, 0.5, 0), 35);
                                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 0.5F, 1.3F);
                                 players.showPlayer(player);
@@ -91,17 +92,17 @@ public class Ninja extends Kit {
                     ParticleEffect.SMOKE_LARGE.display(0.3F, 0.5F, 0.3F, 0, 70, player.getLocation().add(0, 0.5, 0), 35);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 0, false, false));
                     Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
-                        if (KitAbility.getPlayerStatus().containsKey(player.getName())) {
+                        if (KitAbility.getPlayerStatus().containsKey(player)) {
                             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2F, 1.5F);
                         }
                     }, 70);
                     Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
-                        if (KitAbility.getPlayerStatus().containsKey(player.getName())) {
+                        if (KitAbility.getPlayerStatus().containsKey(player)) {
                             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2F, 1.5F);
                         }
                     }, 80);
                     Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
-                        if (KitAbility.getPlayerStatus().containsKey(player.getName())) {
+                        if (KitAbility.getPlayerStatus().containsKey(player)) {
                             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 2F, 1.5F);
                         }
                     }, 90);

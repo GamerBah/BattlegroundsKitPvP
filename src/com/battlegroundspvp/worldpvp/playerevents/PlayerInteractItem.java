@@ -8,20 +8,19 @@ import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.InventoryBuilder;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.menus.KitSelectorMenu;
+import com.battlegroundspvp.worldpvp.menus.Player.ProfileMenu;
+import com.battlegroundspvp.worldpvp.menus.Player.SettingsMenu;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class PlayerInteractItem implements Listener {
+public class PlayerInteractItem {
 
-    @EventHandler
-    public void onInteract(PlayerInteractEvent event) {
+    public static void interact(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         ItemStack item = event.getItem();
         if (AFKRunnable.getAfkTimer().containsKey(player)) {
@@ -61,6 +60,12 @@ public class PlayerInteractItem implements Listener {
                     KitManager.getPreviousKit().get(player.getUniqueId()).wearCheckLevel(player);
                     player.playSound(player.getLocation(), Sound.ITEM_ARMOR_EQUIP_DIAMOND, 2, 0.85F);
                 }
+            } else if (item.getType().equals(Material.SKULL_ITEM)) {
+                new InventoryBuilder(player, new ProfileMenu(player)).open();
+                EventSound.playSound(player, EventSound.INVENTORY_OPEN_MENU);
+            } else if (item.getType().equals(Material.REDSTONE_COMPARATOR)) {
+                new InventoryBuilder(player, new SettingsMenu(player)).open();
+                EventSound.playSound(player, EventSound.INVENTORY_OPEN_MENU);
             }
         }
     }

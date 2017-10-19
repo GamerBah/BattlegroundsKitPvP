@@ -86,7 +86,7 @@ public class PlayerMove implements Listener {
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         if (event.getCause().equals(PlayerTeleportEvent.TeleportCause.ENDER_PEARL)) {
-            if (event.getTo().distance(player.getWorld().getSpawnLocation()) <= 15 || event.getTo().distance(player.getWorld().getSpawnLocation()) >= 60) {
+            if (event.getTo().getBlockY() >= 94 || event.getTo().getBlock().getType().equals(Material.BARRIER)) {
                 event.setCancelled(true);
                 player.getInventory().addItem(new ItemBuilder(Material.ENDER_PEARL).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Enderpearl"));
             }

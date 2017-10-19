@@ -8,6 +8,7 @@ import com.battlegroundspvp.administration.data.Rank;
 import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.*;
+import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
 import com.battlegroundspvp.worldpvp.runnables.KitRollRunnable;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -35,7 +36,7 @@ public class QuartermasterMenus {
 
     public class SlotSelectionMenu extends GameInventory {
 
-        SlotSelectionMenu(Player player) {
+        public SlotSelectionMenu(Player player) {
             super("Roll Amount", new SelectionMenu(player));
             setInventory(BattlegroundsKitPvP.getInstance().getServer().createInventory(null, 36, getInventory().getName()));
             addClickableItem(10, getSlotItem(player, 1));
@@ -75,6 +76,8 @@ public class QuartermasterMenus {
                 itemBuilder.lore("").lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ROLL!").clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                     new InventoryBuilder(player, new SlotRollMenu(player, slotAmount)).open();
                     EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
+                    ScoreboardListener scoreboardListener = new ScoreboardListener();
+                    scoreboardListener.updateScoreboardSouls(player, (-150 * slotAmount));
                 }));
             } else {
                 itemBuilder.clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL)));

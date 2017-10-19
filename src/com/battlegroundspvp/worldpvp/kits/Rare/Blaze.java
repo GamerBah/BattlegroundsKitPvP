@@ -80,23 +80,22 @@ public class Blaze extends Kit {
         final Player player = event.getPlayer();
         if (KitManager.isPlayerInKit(player, this)) {
             if (player.getInventory().getItemInMainHand().getType() == Material.BLAZE_ROD) {
-                if (firerate.contains(player)) {
+                if (player.getLocation().getBlockY() >= 94)
                     return;
-                }
+                if (firerate.contains(player))
+                    return;
                 if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
                     firerate.add(player);
                     Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> firerate.remove(player), 5L);
-                    if (player.getLocation().distance(player.getWorld().getSpawnLocation()) <= 12) {
-                        return;
-                    }
+
                     if (!kitAbility.tryUse(player)) {
                         player.playSound(player.getLocation(), Sound.ITEM_FLINTANDSTEEL_USE, 1, 1);
                         return;
                     }
 
-                    for (Player players : Bukkit.getServer().getOnlinePlayers()) {
+                    for (Player players : Bukkit.getServer().getOnlinePlayers())
                         players.playSound(player.getLocation(), Sound.ENTITY_BLAZE_SHOOT, 1, 1);
-                    }
+
                     SmallFireball fireball = player.launchProjectile(SmallFireball.class);
                     fireball.setVelocity(player.getLocation().getDirection());
                     fireball.setIsIncendiary(true);
@@ -117,7 +116,7 @@ public class Blaze extends Kit {
                     player.playSound(event.getEntity().getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
                     if (player.getLocation().distance(event.getEntity().getLocation()) <= 5) {
                         if (event.getEntity().getShooter() != player) {
-                            player.damage(3.5, (Player) event.getEntity().getShooter());
+                            player.damage(5, (Player) event.getEntity().getShooter());
                         }
                     }
                 }

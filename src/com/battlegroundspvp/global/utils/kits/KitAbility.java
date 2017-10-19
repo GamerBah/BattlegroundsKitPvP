@@ -1,6 +1,7 @@
 package com.battlegroundspvp.global.utils.kits;
 
 import com.battlegroundspvp.BattlegroundsCore;
+import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.utils.ColorBuilder;
 import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class KitAbility {
     @Getter
-    private static Map<String, Status> playerStatus = new HashMap<>();
+    private static Map<Player, Status> playerStatus = new HashMap<>();
     private final int defaultCharges;
     private final double defaultDelay;
 
@@ -30,10 +31,10 @@ public class KitAbility {
      * @return Associated status.
      */
     public Status getStatus(Player player) {
-        Status status = playerStatus.get(player.getName());
+        Status status = playerStatus.get(player);
         if (status == null) {
             status = createStatus(player);
-            playerStatus.put(player.getName(), status);
+            playerStatus.put(player, status);
         } else {
             checkStatus(player, status);
         }
@@ -95,15 +96,16 @@ public class KitAbility {
             player.setLevel(0);
             player.setExp(0F);
 
-            BukkitTask task = BattlegroundsCore.getInstance().getServer().getScheduler().runTaskTimer(BattlegroundsCore.getInstance(), () -> {
-                if (playerStatus.containsKey(player.getName())) {
+            BukkitTask task = BattlegroundsKitPvP.getInstance().getServer().getScheduler().runTaskTimer(BattlegroundsKitPvP.getInstance(), () -> {
+                if (playerStatus.containsKey(player)) {
                     status.cooldown -= 0.05;
                     float completion = Float.parseFloat(Double.toString(getStatus(player).getRemainingTime(player) / delay));
-                    player.setExp(completion);
+                    if (completion >= 0)
+                        player.setExp(completion);
                 }
             }, 0L, 1L);
-            BukkitTask later = BattlegroundsCore.getInstance().getServer().getScheduler().runTaskLater(BattlegroundsCore.getInstance(), () -> {
-                if (playerStatus.containsKey(player.getName())) {
+            BukkitTask later = BattlegroundsKitPvP.getInstance().getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
+                if (playerStatus.containsKey(player)) {
                     checkStatus(player, status);
                     BattlegroundsCore.clearTitle(player);
                     TTA_Methods.sendTitle(player, null, 5, 25, 7, new ColorBuilder(ChatColor.GREEN).bold().create() + "\u21d1 ABILITY RECHARGED! \u21d1", 5, 25, 7);
@@ -114,8 +116,8 @@ public class KitAbility {
                     task.cancel();
                 }
             }, (long) (delay * 20) + 5);
-            BattlegroundsCore.getInstance().getServer().getScheduler().runTaskTimer(BattlegroundsCore.getInstance(), () -> {
-                if (!playerStatus.containsKey(player.getName())) {
+            BattlegroundsKitPvP.getInstance().getServer().getScheduler().runTaskTimer(BattlegroundsKitPvP.getInstance(), () -> {
+                if (!playerStatus.containsKey(player)) {
                     task.cancel();
                     later.cancel();
                 }
@@ -236,7 +238,7 @@ public class KitAbility {
          * @return Number of milliseconds until expiration.
          */
         public double getRemainingTime(Player player) {
-            Status status = playerStatus.get(player.getName());
+            Status status = playerStatus.get(player);
             return status.cooldown;
         }
     }

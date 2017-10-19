@@ -60,7 +60,7 @@ public class SpawnProtectListener implements Listener {
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
         Entity entity = event.getEntity();
-        Location location = entity.getLocation();
+        Location location = event.getEntity().getLocation();
 
         if (location.getBlockY() >= 94) {
             entity.remove();

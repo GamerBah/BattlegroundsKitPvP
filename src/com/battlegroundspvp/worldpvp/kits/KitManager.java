@@ -4,6 +4,7 @@ package com.battlegroundspvp.worldpvp.kits;
 
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.global.utils.kits.Kit;
+import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.kits.Common.Bowman;
 import com.battlegroundspvp.worldpvp.kits.Common.Scout;
 import com.battlegroundspvp.worldpvp.kits.Common.Tank;
@@ -72,7 +73,9 @@ public class KitManager implements Listener {
             plugin.getServer().getPluginManager().registerEvents(kit, plugin);
             getCommandMap().register(plugin.getConfig().getName(), getCommand(kit.getName().replaceAll("\\s+", ""), plugin));
             plugin.getCommand(kit.getName().replaceAll("\\s+", "")).setExecutor(kit);
+            WorldPvP.getKitRewards().add(kit);
         }
+        WorldPvP.getKitRewards().remove(0);
     }
 
     public static boolean isPlayerInKit(Player player) {
@@ -120,7 +123,7 @@ public class KitManager implements Listener {
         }
     }
 
-    private PluginCommand getCommand(String name, Plugin plugin) {
+    public static PluginCommand getCommand(String name, Plugin plugin) {
         PluginCommand command = null;
 
         try {
@@ -135,7 +138,7 @@ public class KitManager implements Listener {
         return command;
     }
 
-    private CommandMap getCommandMap() {
+    public static CommandMap getCommandMap() {
         CommandMap commandMap = null;
 
         try {

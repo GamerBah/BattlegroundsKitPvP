@@ -21,8 +21,11 @@ public class Potato extends Kit {
                 .lore(" ")
                 .lore("§a§lKit Contents:")
                 .lore("§7   ● §3Potato Helmet §7(Protection V)")
-                .lore("§7   ● §3Potato §7(Sharpness V)")
-                .lore("§7   ● §3Poisonous Potato §7(Poison II)")
+                .lore("§7   ● §3Potato §7(Sharpness VI)")
+                .lore("§7   ● §3Poisonous Potato §7(Poison III)")
+                .lore(" ")
+                .lore("§c§lPotion Effects:")
+                .lore("§7   ● §aRegeneration 3")
                 .flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_ENCHANTS), Rarity.LEGENDARY);
     }
 
@@ -33,14 +36,14 @@ public class Potato extends Kit {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
 
-        player.getInventory().setHelmet(new ItemBuilder(Material.POTATO_ITEM).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5));
+        player.getInventory().setHelmet(new ItemBuilder(Material.POTATO_ITEM).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6));
 
         ItemStack potato = new ItemStack(new ItemBuilder(Material.POTATO_ITEM).enchantment(Enchantment.DAMAGE_ALL, 5)
                 .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato"));
         ItemStack poisonPotato = new ItemStack(new ItemBuilder(Material.POISONOUS_POTATO).enchantment(Enchantment.ARROW_INFINITE).flag(ItemFlag.HIDE_ENCHANTS)
                 .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Poisonous Potato")
-                .lore(ChatColor.GRAY + "Poison II").lore(" ")
-                .lore(ChatColor.GRAY + "Inflicts those you").lore(ChatColor.GRAY + "hit with Poison II"));
+                .lore(ChatColor.GRAY + "Poison III").lore(" ")
+                .lore(ChatColor.GRAY + "Inflicts those you").lore(ChatColor.GRAY + "hit with Poison III"));
 
         player.getInventory().addItem(potato);
         player.getInventory().addItem(poisonPotato);
