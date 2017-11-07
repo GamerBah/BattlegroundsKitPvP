@@ -21,8 +21,8 @@ public class QuartermasterMenus {
             super("Quartermaster", null);
             setInventory(BattlegroundsKitPvP.getInstance().getServer().createInventory(null, 27, getInventory().getName()));
             GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
-            addClickableItem(13, new ItemBuilder(Material.DIAMOND)
-                    .name(new ColorBuilder(ChatColor.GREEN).bold().create() + "Purchase Random Kits")
+            addClickableItem(12, new ItemBuilder(Material.DIAMOND)
+                    .name(new ColorBuilder(ChatColor.GREEN).bold().create() + "Buy Kits")
                     .lore(ChatColor.GRAY + "Purchase a random kit")
                     .lore(ChatColor.GRAY + "from the Quartermaster")
                     .lore(ChatColor.GRAY + "for " + ChatColor.AQUA + "150 Souls" + ChatColor.GRAY + " each")
@@ -31,6 +31,24 @@ public class QuartermasterMenus {
                         new InventoryBuilder(player, new SlotSelectionMenu(player)).open();
                         EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                     })));
+            addClickableItem(14, new ItemBuilder(Material.CHEST)
+                    .name(new ColorBuilder(ChatColor.YELLOW).bold().create() + "Kit Inventory")
+                    .lore(ChatColor.GRAY + "View duplicate kits you")
+                    .lore(ChatColor.GRAY + "own and extract souls from them!")
+                    .lore("").lore(ChatColor.GRAY + "You have " + ChatColor.DARK_PURPLE + "0 Duplicates")
+                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        //new InventoryBuilder(player, new SlotSelectionMenu(player)).open();
+                        EventSound.playSound(player, EventSound.ACTION_FAIL);
+                    })));
+        }
+    }
+
+    public class SlotRollMenu extends GameInventory {
+
+        SlotRollMenu(Player player, int amount) {
+            super("Rolling...", new SlotSelectionMenu(player));
+            setInventory(BattlegroundsKitPvP.getInstance().getServer().createInventory(null, 45, getInventory().getName()));
+            new KitRollRunnable(player, amount, getInventory()).start();
         }
     }
 
@@ -78,20 +96,12 @@ public class QuartermasterMenus {
                     EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                     ScoreboardListener scoreboardListener = new ScoreboardListener();
                     scoreboardListener.updateScoreboardSouls(player, (-150 * slotAmount));
+                    gameProfile.getKitPvpData().addSouls(-150 * slotAmount);
                 }));
             } else {
                 itemBuilder.clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
             }
             return itemBuilder;
-        }
-    }
-
-    public class SlotRollMenu extends GameInventory {
-
-        SlotRollMenu(Player player, int amount) {
-            super("Rolling...", new SlotSelectionMenu(player));
-            setInventory(BattlegroundsKitPvP.getInstance().getServer().createInventory(null, 45, getInventory().getName()));
-            new KitRollRunnable(player, amount, getInventory()).start();
         }
     }
 

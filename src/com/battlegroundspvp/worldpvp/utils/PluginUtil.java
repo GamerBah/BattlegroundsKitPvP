@@ -54,21 +54,19 @@ import java.util.logging.Logger;
 public class PluginUtil {
 
     /**
-     * Enable a plugin.
+     * Returns an array of Strings as a single String.
      *
-     * @param plugin the plugin to enable
+     * @param args  the array
+     * @param start the index to start at
+     * @return the array as a String
      */
-    private static void enable(Plugin plugin) {
-        if (plugin != null && !plugin.isEnabled())
-            Bukkit.getPluginManager().enablePlugin(plugin);
-    }
-
-    /**
-     * Enable all plugins.
-     */
-    private static void enableAll() {
-        for (Plugin plugin : Bukkit.getPluginManager().getPlugins())
-            enable(plugin);
+    private static String consolidateStrings(String[] args, int start) {
+        String ret = args[start];
+        if (args.length > (start + 1)) {
+            for (int i = (start + 1); i < args.length; i++)
+                ret = ret + " " + args[i];
+        }
+        return ret;
     }
 
     /**
@@ -88,6 +86,24 @@ public class PluginUtil {
         for (Plugin plugin : Bukkit.getPluginManager().getPlugins()) {
             disable(plugin);
         }
+    }
+
+    /**
+     * Enable a plugin.
+     *
+     * @param plugin the plugin to enable
+     */
+    private static void enable(Plugin plugin) {
+        if (plugin != null && !plugin.isEnabled())
+            Bukkit.getPluginManager().enablePlugin(plugin);
+    }
+
+    /**
+     * Enable all plugins.
+     */
+    private static void enableAll() {
+        for (Plugin plugin : Bukkit.getPluginManager().getPlugins())
+            enable(plugin);
     }
 
     /**
@@ -308,21 +324,5 @@ public class PluginUtil {
         System.gc();
 
         BattlegroundsCore.getInstance().getLogger().info("Unloaded plugin " + name + "!");
-    }
-
-    /**
-     * Returns an array of Strings as a single String.
-     *
-     * @param args  the array
-     * @param start the index to start at
-     * @return the array as a String
-     */
-    private static String consolidateStrings(String[] args, int start) {
-        String ret = args[start];
-        if (args.length > (start + 1)) {
-            for (int i = (start + 1); i < args.length; i++)
-                ret = ret + " " + args[i];
-        }
-        return ret;
     }
 }

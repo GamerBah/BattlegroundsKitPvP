@@ -38,11 +38,69 @@ public class CombatListener implements Listener {
 
     @Getter
     private static HashMap<UUID, Integer> tagged = new HashMap<>();
-    private BattlegroundsKitPvP plugin;
     private HashMap<UUID, Long> logged = new HashMap<>();
+    private BattlegroundsKitPvP plugin;
 
     public CombatListener(BattlegroundsKitPvP plugin) {
         this.plugin = plugin;
+    }
+
+    public void checkTagged(Player damaged, Player damager) {
+        if (!tagged.containsKey(damaged.getUniqueId())) {
+            damaged.sendMessage(ChatColor.GRAY + "You're now in combat with " + ChatColor.RED + damager.getName());
+            tagged.put(damaged.getUniqueId(),
+                    new BukkitRunnable() {
+                        public void run() {
+                            tagged.remove(damaged.getUniqueId());
+                            damaged.sendMessage(ChatColor.GRAY + "You're no longer in combat.");
+                        }
+                    }.runTaskLater(plugin, 240).getTaskId());
+        } else {
+            plugin.getServer().getScheduler().cancelTask(tagged.get(damaged.getUniqueId()));
+            tagged.put(damaged.getUniqueId(),
+                    new BukkitRunnable() {
+                        public void run() {
+                            tagged.remove(damaged.getUniqueId());
+                            damaged.sendMessage(ChatColor.GRAY + "You're no longer in combat.");
+                        }
+                    }.runTaskLater(plugin, 240).getTaskId());
+        }
+    }
+
+    public boolean isTeamed(Player damaged, Player damager) {
+        if (BattlegroundsKitPvP.currentTeams.containsKey(damaged.getName()) || BattlegroundsKitPvP.currentTeams.containsKey(damager.getName())) {
+            if (BattlegroundsKitPvP.currentTeams.get(damaged.getName()).equals(damager.getName()) || BattlegroundsKitPvP.currentTeams.get(damager.getName()).equals(damaged.getName())) {
+                if (plugin.getServer().getOnlinePlayers().size() >= 1) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+
+            if (player.getLocation().getBlockY() >= 94) {
+                event.setCancelled(true);
+                return;
+            }
+
+            if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
+                if (WorldPvP.getNoFall().contains(player)) {
+                    event.setCancelled(true);
+                    player.setFallDistance(0);
+                    WorldPvP.getNoFall().remove(player);
+                }
+                if (UpdateRunnable.updating) {
+                    event.setCancelled(true);
+                }
+            }
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
@@ -95,7 +153,7 @@ public class CombatListener implements Listener {
             checkTagged(damager, damaged);
 
             if (damager.getInventory().getItemInMainHand().getType().equals(Material.POISONOUS_POTATO)) {
-                damaged.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 2, true, true));
+                damaged.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 200, 3, true, true));
             }
         }
 
@@ -160,52 +218,6 @@ public class CombatListener implements Listener {
         }
     }
 
-    public void checkTagged(Player damaged, Player damager) {
-        if (!tagged.containsKey(damaged.getUniqueId())) {
-            damaged.sendMessage(ChatColor.GRAY + "You're now in combat with " + ChatColor.RED + damager.getName());
-            tagged.put(damaged.getUniqueId(),
-                    new BukkitRunnable() {
-                        public void run() {
-                            tagged.remove(damaged.getUniqueId());
-                            damaged.sendMessage(ChatColor.GRAY + "You're no longer in combat.");
-                        }
-                    }.runTaskLater(plugin, 240).getTaskId());
-        } else {
-            plugin.getServer().getScheduler().cancelTask(tagged.get(damaged.getUniqueId()));
-            tagged.put(damaged.getUniqueId(),
-                    new BukkitRunnable() {
-                        public void run() {
-                            tagged.remove(damaged.getUniqueId());
-                            damaged.sendMessage(ChatColor.GRAY + "You're no longer in combat.");
-                        }
-                    }.runTaskLater(plugin, 240).getTaskId());
-        }
-    }
-
-    public boolean isTeamed(Player damaged, Player damager) {
-        if (BattlegroundsKitPvP.currentTeams.containsKey(damaged.getName()) || BattlegroundsKitPvP.currentTeams.containsKey(damager.getName())) {
-            if (BattlegroundsKitPvP.currentTeams.get(damaged.getName()).equals(damager.getName()) || BattlegroundsKitPvP.currentTeams.get(damager.getName()).equals(damaged.getName())) {
-                if (plugin.getServer().getOnlinePlayers().size() >= 1) {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-
-        if (tagged.containsKey(player.getUniqueId())) {
-            tagged.remove(player.getUniqueId());
-            plugin.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + player.getName() + ChatColor.RED + " has logged out while in combat!");
-            logged.put(player.getUniqueId(), System.currentTimeMillis() + 120000);
-        }
-    }
-
     @EventHandler
     public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
@@ -215,16 +227,6 @@ public class CombatListener implements Listener {
                 && (event.getMessage().toLowerCase().startsWith("/spectate"))) {
             player.sendMessage(ChatColor.RED + "You cannot use that command during combat!");
             event.setCancelled(true);
-        }
-    }
-
-    @EventHandler
-    public void onPlayerRespawn(PlayerDeathEvent event) {
-        Player player = event.getEntity();
-
-        if (tagged.containsKey(player.getUniqueId())) {
-            plugin.getServer().getScheduler().cancelTask(tagged.get(player.getUniqueId()));
-            tagged.remove(player.getUniqueId());
         }
     }
 
@@ -241,26 +243,24 @@ public class CombatListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onDamage(EntityDamageEvent event) {
-        if (event.getEntity() instanceof Player) {
-            Player player = (Player) event.getEntity();
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
 
-            if (player.getLocation().getBlockY() >= 94) {
-                event.setCancelled(true);
-                return;
-            }
+        if (tagged.containsKey(player.getUniqueId())) {
+            tagged.remove(player.getUniqueId());
+            plugin.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + player.getName() + ChatColor.RED + " has logged out while in combat!");
+            logged.put(player.getUniqueId(), System.currentTimeMillis() + 120000);
+        }
+    }
 
-            if (event.getCause().equals(EntityDamageEvent.DamageCause.FALL)) {
-                if (WorldPvP.getNoFall().contains(player)) {
-                    event.setCancelled(true);
-                    player.setFallDistance(0);
-                    WorldPvP.getNoFall().remove(player);
-                }
-                if (UpdateRunnable.updating) {
-                    event.setCancelled(true);
-                }
-            }
+    @EventHandler
+    public void onPlayerRespawn(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        if (tagged.containsKey(player.getUniqueId())) {
+            plugin.getServer().getScheduler().cancelTask(tagged.get(player.getUniqueId()));
+            tagged.remove(player.getUniqueId());
         }
     }
 }

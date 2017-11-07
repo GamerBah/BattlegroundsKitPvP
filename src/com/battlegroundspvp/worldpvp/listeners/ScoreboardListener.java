@@ -25,17 +25,17 @@ import java.util.UUID;
 public class ScoreboardListener implements Listener {
 
     @Getter
-    private Map<UUID, Integer> souls = new HashMap<>();
-    @Getter
     private Map<UUID, Integer> coins = new HashMap<>();
-    @Getter
-    private Map<UUID, Integer> kills = new HashMap<>();
     @Getter
     private Map<UUID, Integer> deaths = new HashMap<>();
     @Getter
+    private Map<UUID, String> kds = new HashMap<>();
+    @Getter
+    private Map<UUID, Integer> kills = new HashMap<>();
+    @Getter
     private Map<UUID, String> ranks = new HashMap<>();
     @Getter
-    private Map<UUID, String> kds = new HashMap<>();
+    private Map<UUID, Integer> souls = new HashMap<>();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
@@ -85,6 +85,56 @@ public class ScoreboardListener implements Listener {
         healthObjective.setDisplayName(ChatColor.RED + "\u2764");
         player.setHealth(player.getHealth());
         player.setScoreboard(board);
+    }
+
+    public void reloadScoreboardTeams(Player player, Scoreboard board) {
+        GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
+        player.setScoreboard(board);
+        Team killer = board.getTeam("killer");
+        Team buzzkill = board.getTeam("buzzkill");
+        Team vengeful = board.getTeam("vengeful");
+        Team sadist = board.getTeam("sadist");
+        Team fragile = board.getTeam("fragile");
+        Team none = board.getTeam("none");
+
+        for (Team team : board.getTeams()) {
+            team.setAllowFriendlyFire(true);
+            team.setCanSeeFriendlyInvisibles(false);
+            team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
+        }
+
+        for (Player target : Bukkit.getOnlinePlayers()) {
+            GameProfile targetProfile = BattlegroundsCore.getInstance().getGameProfile(target.getUniqueId());
+            /*if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.BRUTALITY_MASTER.toString())) {
+                killer.addEntry(target.getName());
+            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.BUZZKILL_MASTER.toString())) {
+                buzzkill.addEntry(target.getName());
+            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.VENGEFUL_MASTER.toString())) {
+                vengeful.addEntry(target.getName());
+            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.SADIST_MASTER.toString())) {
+                sadist.addEntry(target.getName());
+            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.DEATHKNELL.toString())) {
+                fragile.addEntry(target.getName());
+            } else if (targetProfile.getKitPvpData().getTitle().equals("TRAIL_NONE")) {
+                none.addEntry(target.getName());
+            }
+
+            if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.BRUTALITY_MASTER.toString())) {
+                target.getScoreboard().getTeam("killer").addEntry(player.getName());
+            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.BUZZKILL_MASTER.toString())) {
+                target.getScoreboard().getTeam("buzzkill").addEntry(player.getName());
+            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.VENGEFUL_MASTER.toString())) {
+                target.getScoreboard().getTeam("vengeful").addEntry(player.getName());
+            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.SADIST_MASTER.toString())) {
+                target.getScoreboard().getTeam("sadist").addEntry(player.getName());
+            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.DEATHKNELL.toString())) {
+                target.getScoreboard().getTeam("fragile").addEntry(player.getName());
+            } else if (gameProfile.getKitPvpData().getTitle().equals("TRAIL_NONE")) {
+                target.getScoreboard().getTeam("none").addEntry(player.getName());
+            }*/
+            none.addEntry(target.getName());
+            target.getScoreboard().getTeam("none").addEntry(player.getName());
+        }
     }
 
     private void setupScoreboardTeams(Player player, Scoreboard board) {
@@ -141,90 +191,15 @@ public class ScoreboardListener implements Listener {
         }
     }
 
-    public void reloadScoreboardTeams(Player player, Scoreboard board) {
-        GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
-        player.setScoreboard(board);
-        Team killer = board.getTeam("killer");
-        Team buzzkill = board.getTeam("buzzkill");
-        Team vengeful = board.getTeam("vengeful");
-        Team sadist = board.getTeam("sadist");
-        Team fragile = board.getTeam("fragile");
-        Team none = board.getTeam("none");
-
-        for (Team team : board.getTeams()) {
-            team.setAllowFriendlyFire(true);
-            team.setCanSeeFriendlyInvisibles(false);
-            team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
-        }
-
-        for (Player target : Bukkit.getOnlinePlayers()) {
-            GameProfile targetProfile = BattlegroundsCore.getInstance().getGameProfile(target.getUniqueId());
-            /*if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.BRUTALITY_MASTER.toString())) {
-                killer.addEntry(target.getName());
-            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.BUZZKILL_MASTER.toString())) {
-                buzzkill.addEntry(target.getName());
-            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.VENGEFUL_MASTER.toString())) {
-                vengeful.addEntry(target.getName());
-            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.SADIST_MASTER.toString())) {
-                sadist.addEntry(target.getName());
-            } else if (targetProfile.getKitPvpData().getTitle().equals(Achievement.Type.DEATHKNELL.toString())) {
-                fragile.addEntry(target.getName());
-            } else if (targetProfile.getKitPvpData().getTitle().equals("TRAIL_NONE")) {
-                none.addEntry(target.getName());
-            }
-
-            if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.BRUTALITY_MASTER.toString())) {
-                target.getScoreboard().getTeam("killer").addEntry(player.getName());
-            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.BUZZKILL_MASTER.toString())) {
-                target.getScoreboard().getTeam("buzzkill").addEntry(player.getName());
-            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.VENGEFUL_MASTER.toString())) {
-                target.getScoreboard().getTeam("vengeful").addEntry(player.getName());
-            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.SADIST_MASTER.toString())) {
-                target.getScoreboard().getTeam("sadist").addEntry(player.getName());
-            } else if (gameProfile.getKitPvpData().getTitle().equals(Achievement.Type.DEATHKNELL.toString())) {
-                target.getScoreboard().getTeam("fragile").addEntry(player.getName());
-            } else if (gameProfile.getKitPvpData().getTitle().equals("TRAIL_NONE")) {
-                target.getScoreboard().getTeam("none").addEntry(player.getName());
-            }*/
-            none.addEntry(target.getName());
-            target.getScoreboard().getTeam("none").addEntry(player.getName());
-        }
-    }
-
-    public void updateScoreboardRank(Player player) {
+    public void updateScoreboardCoins(Player player, int amount) {
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         Scoreboard board = player.getScoreboard();
         Objective objective = board.getObjective("PlayerData");
-        getRanks().put(player.getUniqueId(), gameProfile.getRank().getColor().create() + (gameProfile.hasRank(Rank.WARRIOR)
-                ? "" + ChatColor.BOLD + gameProfile.getRank().getName().toUpperCase() : gameProfile.getRank().getName()));
-        board.resetScores(new ColorBuilder(ChatColor.WHITE).bold().create() + "Rank: " + ranks.get(player.getUniqueId()));
-        if (gameProfile.getRank().equals(Rank.DEFAULT)) {
-            objective.getScore(new ColorBuilder(ChatColor.WHITE).bold().create() + "Rank: " + gameProfile.getRank().getColor().create() + gameProfile.getRank().getName()).setScore(9);
-        } else {
-            objective.getScore(new ColorBuilder(ChatColor.WHITE).bold().create() + "Rank: " + gameProfile.getRank().getColor().create() + "" + ChatColor.BOLD + gameProfile.getRank().getName().toUpperCase()).setScore(9);
-        }
+        getCoins().put(player.getUniqueId(), gameProfile.getCoins());
+        BattlegroundsCore.getInstance().getGlobalStats().setTotalCoinsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalCoinsEarned() + amount);
+        board.resetScores(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Battle Coins: " + ChatColor.GRAY + coins.get(player.getUniqueId()));
+        objective.getScore(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Battle Coins: " + ChatColor.GRAY + (gameProfile.getCoins() + amount)).setScore(2);
         player.setScoreboard(board);
-    }
-
-
-    public void updateScoreboardKills(Player player, int amount) {
-        GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
-        Scoreboard board = player.getScoreboard();
-        Objective objective = board.getObjective("PlayerData");
-        KDRatio kdRatio = new KDRatio();
-        getKills().put(player.getUniqueId(), gameProfile.getKitPvpData().getKills());
-        getKds().put(player.getUniqueId(), ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile));
-        gameProfile.getKitPvpData().addKill(amount);
-        board.resetScores(new ColorBuilder(ChatColor.GREEN).bold().create() + "Kills: " + ChatColor.GRAY + kills.get(player.getUniqueId()));
-        board.resetScores(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + kds.get(player.getUniqueId()));
-        objective.getScore(new ColorBuilder(ChatColor.GREEN).bold().create() + "Kills: " + ChatColor.GRAY + gameProfile.getKitPvpData().getKills()).setScore(7);
-        objective.getScore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile)).setScore(5);
-        player.setScoreboard(board);
-    }
-
-    public void updateScoreboardKills(Player player) {
-        updateScoreboardKills(player, 1);
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalKills(BattlegroundsCore.getInstance().getGlobalStats().getTotalKills() + 1);
     }
 
     public void updateScoreboardDeaths(Player player, int amount) {
@@ -234,17 +209,44 @@ public class ScoreboardListener implements Listener {
         KDRatio kdRatio = new KDRatio();
         getDeaths().put(player.getUniqueId(), gameProfile.getKitPvpData().getDeaths());
         getKds().put(player.getUniqueId(), ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile));
-        gameProfile.getKitPvpData().addDeath(amount);
+        BattlegroundsCore.getInstance().getGlobalStats().setTotalDeaths(BattlegroundsCore.getInstance().getGlobalStats().getTotalDeaths() + amount);
         board.resetScores(new ColorBuilder(ChatColor.RED).bold().create() + "Deaths: " + ChatColor.GRAY + deaths.get(player.getUniqueId()));
         board.resetScores(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + kds.get(player.getUniqueId()));
-        objective.getScore(new ColorBuilder(ChatColor.RED).bold().create() + "Deaths: " + ChatColor.GRAY + gameProfile.getKitPvpData().getDeaths()).setScore(6);
-        objective.getScore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile)).setScore(5);
+        objective.getScore(new ColorBuilder(ChatColor.RED).bold().create() + "Deaths: " + ChatColor.GRAY + (gameProfile.getKitPvpData().getDeaths() + amount)).setScore(6);
+        objective.getScore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + ChatColor.GRAY + ""
+                + kdRatio.getRatio(gameProfile.getKitPvpData().getKills(), gameProfile.getKitPvpData().getDeaths() + amount)).setScore(5);
         player.setScoreboard(board);
     }
 
-    public void updateScoreboardDeaths(Player player) {
-        updateScoreboardDeaths(player, 1);
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalDeaths(BattlegroundsCore.getInstance().getGlobalStats().getTotalDeaths() + 1);
+    public void updateScoreboardKills(Player player, int amount) {
+        GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
+        Scoreboard board = player.getScoreboard();
+        Objective objective = board.getObjective("PlayerData");
+        KDRatio kdRatio = new KDRatio();
+        getKills().put(player.getUniqueId(), gameProfile.getKitPvpData().getKills());
+        getKds().put(player.getUniqueId(), ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile));
+        BattlegroundsCore.getInstance().getGlobalStats().setTotalKills(BattlegroundsCore.getInstance().getGlobalStats().getTotalKills() + amount);
+        board.resetScores(new ColorBuilder(ChatColor.GREEN).bold().create() + "Kills: " + ChatColor.GRAY + kills.get(player.getUniqueId()));
+        board.resetScores(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + kds.get(player.getUniqueId()));
+        objective.getScore(new ColorBuilder(ChatColor.GREEN).bold().create() + "Kills: " + ChatColor.GRAY + (gameProfile.getKitPvpData().getKills() + amount)).setScore(7);
+        objective.getScore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + ChatColor.GRAY + ""
+                + kdRatio.getRatio(gameProfile.getKitPvpData().getKills() + amount, gameProfile.getKitPvpData().getDeaths())).setScore(5);
+        player.setScoreboard(board);
+    }
+
+    public void updateScoreboardRank(Player player, Rank rank) {
+        GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
+        Scoreboard board = player.getScoreboard();
+        Objective objective = board.getObjective("PlayerData");
+        getRanks().put(player.getUniqueId(), gameProfile.getRank().getColor().create() + (gameProfile.hasRank(Rank.WARRIOR)
+                ? "" + ChatColor.BOLD + gameProfile.getRank().getName().toUpperCase() : gameProfile.getRank().getName()));
+        board.resetScores(new ColorBuilder(ChatColor.WHITE).bold().create() + "Rank: " + ranks.get(player.getUniqueId()));
+        if (gameProfile.getRank().equals(Rank.DEFAULT)) {
+            objective.getScore(new ColorBuilder(ChatColor.WHITE).bold().create() + "Rank: " + rank.getColor().create() + rank.getName()).setScore(9);
+        } else {
+            objective.getScore(new ColorBuilder(ChatColor.WHITE).bold().create() + "Rank: " + rank.getColor().create() + "" + ChatColor.BOLD + rank.getName().toUpperCase()).setScore(9);
+        }
+        player.setScoreboard(board);
     }
 
     public void updateScoreboardSouls(Player player, int amount) {
@@ -252,22 +254,9 @@ public class ScoreboardListener implements Listener {
         Scoreboard board = player.getScoreboard();
         Objective objective = board.getObjective("PlayerData");
         getSouls().put(player.getUniqueId(), gameProfile.getKitPvpData().getSouls());
-        gameProfile.getKitPvpData().addSouls(amount);
         BattlegroundsCore.getInstance().getGlobalStats().setTotalSoulsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalSoulsEarned() + amount);
         board.resetScores(new ColorBuilder(ChatColor.AQUA).bold().create() + "Souls: " + ChatColor.GRAY + souls.get(player.getUniqueId()));
-        objective.getScore(new ColorBuilder(ChatColor.AQUA).bold().create() + "Souls: " + ChatColor.GRAY + gameProfile.getKitPvpData().getSouls()).setScore(3);
-        player.setScoreboard(board);
-    }
-
-    public void updateScoreboardCoins(Player player, int amount) {
-        GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
-        Scoreboard board = player.getScoreboard();
-        Objective objective = board.getObjective("PlayerData");
-        getCoins().put(player.getUniqueId(), gameProfile.getCoins());
-        gameProfile.addCoins(amount);
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalCoinsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalCoinsEarned() + amount);
-        board.resetScores(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Battle Coins: " + ChatColor.GRAY + coins.get(player.getUniqueId()));
-        objective.getScore(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Battle Coins: " + ChatColor.GRAY + gameProfile.getCoins()).setScore(2);
+        objective.getScore(new ColorBuilder(ChatColor.AQUA).bold().create() + "Souls: " + ChatColor.GRAY + (gameProfile.getKitPvpData().getSouls() + amount)).setScore(3);
         player.setScoreboard(board);
     }
 

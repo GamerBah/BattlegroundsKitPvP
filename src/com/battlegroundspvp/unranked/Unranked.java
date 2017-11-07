@@ -5,11 +5,11 @@ import org.bukkit.plugin.PluginManager;
 
 public class Unranked {
 
-    public void registerEvents(PluginManager pluginManager) {
+    public void registerCommands() {
 
     }
 
-    public void registerCommands() {
+    public void registerEvents(PluginManager pluginManager) {
 
     }
 

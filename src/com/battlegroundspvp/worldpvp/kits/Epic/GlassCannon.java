@@ -24,7 +24,7 @@ public class GlassCannon extends Kit {
                 .lore("§7   ● Leather Chestplate (Protection I)")
                 .lore("§7   ● Leather Leggings")
                 .lore("§7   ● Leather Boots")
-                .lore("§7   ● Wooden Sword (Sharpness V)")
+                .lore("§7   ● Wooden Sword (Sharpness IV)")
                 .lore(" ")
                 .lore("§c§lPotion Effects:")
                 .lore("§7   ● §aStrength II")
@@ -44,7 +44,7 @@ public class GlassCannon extends Kit {
         player.getInventory().setLeggings(new ItemBuilder(Material.LEATHER_LEGGINGS).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Glass Cannon Leggings").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
         player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Glass Cannon Boots").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
-        ItemStack sword = new ItemStack(new ItemBuilder(Material.WOOD_SWORD).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Glass Cannon Sword").enchantment(Enchantment.DAMAGE_ALL, 5).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack sword = new ItemStack(new ItemBuilder(Material.WOOD_SWORD).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Glass Cannon Sword").enchantment(Enchantment.DAMAGE_ALL, 4).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
         player.getInventory().addItem(sword);
     }

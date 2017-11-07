@@ -8,9 +8,9 @@ import com.battlegroundspvp.global.utils.kits.KitAbility;
 import com.battlegroundspvp.runnables.UpdateRunnable;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.packets.particles.ParticleEffect;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import de.Herbystar.TTA.TTA_Methods;
+import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blaze extends Kit {
-    private KitAbility kitAbility = new KitAbility(3, 8.00);
     private List<Player> firerate = new ArrayList<>();
+    private KitAbility kitAbility = new KitAbility(3, 8.00);
 
     public Blaze() {
         super(21, "Blaze", new ItemBuilder(Material.FIREBALL)
@@ -50,26 +50,6 @@ public class Blaze extends Kit {
                 .lore("§b§lAbility:")
                 .lore("§7Shoot exploding fireballs")
                 .flag(ItemFlag.HIDE_ATTRIBUTES), Rarity.RARE);
-    }
-
-    protected void wear(Player player) {
-        for (PotionEffect effect : player.getActivePotionEffects()) {
-            player.removePotionEffect(effect.getType());
-        }
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false));
-
-        player.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET).name(Rarity.RARE.getColor() + "Blaze Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(Rarity.RARE.getColor() + "Blaze Chestplate").color(Color.ORANGE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS).name(Rarity.RARE.getColor() + "Blaze Boots").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-
-        ItemStack sword = new ItemStack(new ItemBuilder(Material.BLAZE_ROD).name(Rarity.RARE.getColor() + "Blaze Rod").enchantment(Enchantment.DAMAGE_ALL, 7).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-
-        player.getInventory().addItem(sword);
-
-        BattlegroundsCore.clearTitle(player);
-        TTA_Methods.sendTitle(player, null, 5, 35, 10, ChatColor.GREEN + "Right-Click to use Ability!", 5, 35, 10);
     }
 
     @EventHandler
@@ -122,5 +102,25 @@ public class Blaze extends Kit {
                 }
             }
         }
+    }
+
+    protected void wear(Player player) {
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            player.removePotionEffect(effect.getType());
+        }
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0, false, false));
+
+        player.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET).name(Rarity.RARE.getColor() + "Blaze Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(Rarity.RARE.getColor() + "Blaze Chestplate").color(Color.ORANGE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS).name(Rarity.RARE.getColor() + "Blaze Boots").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+
+        ItemStack sword = new ItemStack(new ItemBuilder(Material.BLAZE_ROD).name(Rarity.RARE.getColor() + "Blaze Rod").enchantment(Enchantment.DAMAGE_ALL, 7).enchantment(Enchantment.FIRE_ASPECT, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+
+        player.getInventory().addItem(sword);
+
+        BattlegroundsCore.clearTitle(player);
+        TTA_Methods.sendTitle(player, null, 5, 35, 10, ChatColor.GREEN + "Right-Click to use Ability!", 5, 35, 10);
     }
 }

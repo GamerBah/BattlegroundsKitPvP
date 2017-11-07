@@ -23,11 +23,21 @@ import java.util.List;
 public class WorldPvP {
 
     @Getter
+    private static ArrayList<Kit> kitRewards = new ArrayList<>();
+    @Getter
     private static List<Player> noFall = new ArrayList<>();
     @Getter
     private static HashMap<Player, Integer> rolling = new HashMap<>();
-    @Getter
-    private static ArrayList<Kit> kitRewards = new ArrayList<>();
+
+    public static HashMap<String, CommandExecutor> getCommands() {
+        // DON'T FORGET TO REGISTER THE COMMAND IN THE CORE PLUGIN.YML!
+        HashMap<String, CommandExecutor> commands = new HashMap<>();
+        commands.put("spectate", new SpectateCommand());
+        commands.put("team", new TeamCommand(BattlegroundsKitPvP.getInstance()));
+        commands.put("spawn", new SpawnCommand(BattlegroundsKitPvP.getInstance()));
+
+        return commands;
+    }
 
     public void registerEvents(PluginManager pluginManager) {
         pluginManager.registerEvents(new ItemSpawnListener(), BattlegroundsKitPvP.getInstance());
@@ -41,15 +51,6 @@ public class WorldPvP {
         pluginManager.registerEvents(new PlayerItemPickup(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerSwapHands(), BattlegroundsKitPvP.getInstance());
         pluginManager.registerEvents(new PlayerMove(BattlegroundsKitPvP.getInstance()), BattlegroundsKitPvP.getInstance());
-    }
-
-    public static HashMap<String, CommandExecutor> getCommands() {
-        HashMap<String, CommandExecutor> commands = new HashMap<>();
-        commands.put("spectate", new SpectateCommand());
-        commands.put("team", new TeamCommand(BattlegroundsKitPvP.getInstance()));
-        commands.put("spawn", new SpawnCommand(BattlegroundsKitPvP.getInstance()));
-
-        return commands;
     }
 
 }

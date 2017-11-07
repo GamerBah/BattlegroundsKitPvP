@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 
 public class RespawnTimer implements Runnable {
 
-    private Thread thread;
-    private final String threadName;
-    private final Player player;
     private final String deathMessage;
+    private final Player player;
+    private final String threadName;
+    private Thread thread;
 
     public RespawnTimer(Player player, String deathMessage) {
         this.player = player;
@@ -33,6 +33,7 @@ public class RespawnTimer implements Runnable {
             exception.printStackTrace();
         }
         BattlegroundsKitPvP.getInstance().getServer().getScheduler().scheduleSyncDelayedTask(BattlegroundsKitPvP.getInstance(), () -> {
+            BattlegroundsCore.clearTitle(player);
             BattlegroundsCore.getInstance().respawn(player);
             EventSound.playSound(player, EventSound.COMMAND_NEEDS_CONFIRMATION);
         });

@@ -4,7 +4,9 @@ package com.battlegroundspvp.worldpvp.menus.Cosmetics;
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.utils.ColorBuilder;
-import com.battlegroundspvp.utils.enums.Cosmetic;
+import com.battlegroundspvp.utils.cosmetics.Cosmetic;
+import com.battlegroundspvp.utils.cosmetics.CosmeticManager;
+import com.battlegroundspvp.utils.cosmetics.defaultcosmetics.DefaultParticlePack;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.*;
@@ -18,47 +20,82 @@ public class TrailMenu extends GameInventory {
 
     public TrailMenu(Player player) {
         super("Particle Packs", new ProfileMenu(player));
-        setInventory(Bukkit.getServer().createInventory(null, 27, getInventory().getName()));
+        setInventory(Bukkit.getServer().createInventory(null, 36, getInventory().getName()));
 
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
 
-        ItemBuilder rareLockedGlass = new ItemBuilder(Material.STAINED_GLASS_PANE).durability(11).name(ChatColor.BLUE + "Rare Particle Pack").lore(ChatColor.GRAY + "Random unlock from a Cosmeticrate");
+        for (int i = 18; i < 27; i++) {
+            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+                    .durability(7)
+                    .name(ChatColor.GRAY + "Common Particle Pack")
+                    .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
+                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
+        }
+
         for (int i = 9; i < 18; i++) {
-            addClickableItem(i, rareLockedGlass);
+            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+                    .durability(11)
+                    .name(ChatColor.BLUE + "Rare Particle Pack")
+                    .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
+                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
 
-        ItemBuilder epicLockedGlass = new ItemBuilder(Material.STAINED_GLASS_PANE).durability(1).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Epic Particle Pack").lore(ChatColor.GRAY + "Random unlock from a Cosmeticrate");
         for (int i = 0; i < 5; i++) {
-            addClickableItem(i, epicLockedGlass);
+            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+                    .durability(1)
+                    .name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Epic Particle Pack")
+                    .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
+                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
 
-        ItemBuilder legendaryLockedGlass = new ItemBuilder(Material.STAINED_GLASS_PANE).durability(2).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Legendary Particle Pack").lore(ChatColor.GRAY + "Random unlock from a Cosmeticrate");
         for (int i = 5; i < 9; i++) {
-            addClickableItem(i, legendaryLockedGlass);
+            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+                    .durability(2)
+                    .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Legendary Particle Pack")
+                    .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
+                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
 
-        int rareSlot = 9, epicSlot = 0, legendarySlot = 5;
+        int commonSlot = 18, rareSlot = 9, epicSlot = 0, legendarySlot = 5;
 
-        for (Cosmetic.Item item : Cosmetic.Item.values()) {
-            if (item.getGroup().equals(Cosmetic.PARTICLE_PACK)) {
-                if (item.getRarity() == Rarity.RARE) {
-                    if (gameProfile.getOwnedCosmetics().contains(item.getId() + ",")) {
-                        addClickableItem(rareSlot++, item.getItem());
-                    }
-                } else if (item.getRarity() == Rarity.EPIC) {
-                    if (gameProfile.getOwnedCosmetics().contains(item.getId() + ",")) {
-                        addClickableItem(epicSlot++, item.getItem());
-                    }
-                } else if (item.getRarity() == Rarity.LEGENDARY) {
-                    if (gameProfile.getOwnedCosmetics().contains(item.getId() + ",")) {
-                        addClickableItem(legendarySlot++, item.getItem());
-                    }
+        for (Cosmetic cosmetic : CosmeticManager.getRewardableCosmetics()) {
+            if (cosmetic.getEffectType().equals(Cosmetic.EffectType.PARTICLE_PACK)) {
+                if (gameProfile.getCosmeticsData().getKitPvpCosmetics().contains(cosmetic.getId())) {
+                    if (cosmetic.getRarity() == Rarity.COMMON) addClickableItem(commonSlot++,
+                            cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                                EventSound.playSound(player, EventSound.ACTION_SUCCESS);
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
+                            })));
+                    if (cosmetic.getRarity() == Rarity.RARE) addClickableItem(rareSlot++,
+                            cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                                EventSound.playSound(player, EventSound.ACTION_SUCCESS);
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
+                            })));
+                    if (cosmetic.getRarity() == Rarity.EPIC) addClickableItem(epicSlot++,
+                            cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                                EventSound.playSound(player, EventSound.ACTION_SUCCESS);
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
+                            })));
+                    if (cosmetic.getRarity() == Rarity.LEGENDARY) addClickableItem(legendarySlot++,
+                            cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                                EventSound.playSound(player, EventSound.ACTION_SUCCESS);
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
+                            })));
                 }
             }
         }
 
-        addClickableItem(26, Cosmetic.Item.TRAIL_NONE.getItem());
-        addClickableItem(22, InventoryItems.back.clone()
+        addClickableItem(35, new DefaultParticlePack().getItem()
+                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                    EventSound.playSound(player, EventSound.ACTION_FAIL);
+                    player.sendMessage(ChatColor.GRAY + "Removed your active Particle Pack");
+                    gameProfile.getKitPvpData().setActiveWarcry(new DefaultParticlePack().getId());
+                })));
+        addClickableItem(27, InventoryItems.back.clone()
                 .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                     new InventoryBuilder(player, getPreviousInventory()).open();
                     EventSound.playSound(player, EventSound.INVENTORY_GO_BACK);

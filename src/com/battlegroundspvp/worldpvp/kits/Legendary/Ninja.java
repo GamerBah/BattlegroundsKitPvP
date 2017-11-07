@@ -8,8 +8,8 @@ import com.battlegroundspvp.runnables.UpdateRunnable;
 import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.packets.particles.ParticleEffect;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
+import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -41,24 +41,6 @@ public class Ninja extends Kit {
                 .lore("§b§lAbility:")
                 .lore("§7Become invisible and gain a speed boost")
                 .flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_ENCHANTS), Rarity.LEGENDARY);
-    }
-
-    protected void wear(Player player) {
-        for (PotionEffect effect : player.getActivePotionEffects()) {
-            player.removePotionEffect(effect.getType());
-        }
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
-
-        player.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Hood").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shirt").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Pants").enchantment(Enchantment.THORNS, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shoes").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-
-        ItemStack potato = new ItemStack(new ItemBuilder(Material.IRON_SWORD).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE)
-                .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Dagger"));
-
-        player.getInventory().addItem(potato);
     }
 
     @EventHandler
@@ -109,5 +91,23 @@ public class Ninja extends Kit {
                 }
             }
         }
+    }
+
+    protected void wear(Player player) {
+        for (PotionEffect effect : player.getActivePotionEffects()) {
+            player.removePotionEffect(effect.getType());
+        }
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
+
+        player.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Hood").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shirt").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Pants").enchantment(Enchantment.THORNS, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shoes").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+
+        ItemStack potato = new ItemStack(new ItemBuilder(Material.IRON_SWORD).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE)
+                .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Dagger"));
+
+        player.getInventory().addItem(potato);
     }
 }

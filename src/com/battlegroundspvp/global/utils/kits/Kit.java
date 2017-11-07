@@ -31,14 +31,14 @@ public abstract class Kit implements Listener, CommandExecutor {
      */
     private int id;
     /**
-     * Name of the kit
-     */
-    private String name = "";
-    /**
      * Item representing the kit
      * Contains lore and display name
      */
     private ItemBuilder item = new ItemBuilder(Material.AIR);
+    /**
+     * Name of the kit
+     */
+    private String name = "";
     /**
      * Type of the kit
      */
@@ -53,10 +53,26 @@ public abstract class Kit implements Listener, CommandExecutor {
      */
     public Kit(Integer id, String name, ItemBuilder item, Rarity rarity) {
         this.id = id;
-        item.name(rarity.getColor() + (rarity.equals(Rarity.EPIC) || rarity.equals(Rarity.LEGENDARY) ? "" + ChatColor.BOLD : "") + name);
+        item.name(rarity.getColor() + name);
         this.name = name;
         this.item = item;
         this.rarity = rarity;
+    }
+
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            if (command.getName().equalsIgnoreCase(getName().replaceAll("\\s+", ""))) {
+                if (!FreezeCommand.frozenPlayers.contains(player) && !FreezeCommand.frozen && BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId() + ",")) {
+                    wearCheckLevel(player);
+                }
+                if (!BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId() + ",")) {
+                    player.sendMessage(ChatColor.RED + "You haven't unlocked this kit yet!");
+                    EventSound.playSound(player, EventSound.ACTION_FAIL);
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -89,21 +105,5 @@ public abstract class Kit implements Listener, CommandExecutor {
         } else {
             player.sendMessage(ChatColor.RED + "You have not died yet!");
         }
-    }
-
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            if (command.getName().equalsIgnoreCase(getName().replaceAll("\\s+", ""))) {
-                if (!FreezeCommand.frozenPlayers.contains(player) && !FreezeCommand.frozen && BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId() + ",")) {
-                    wearCheckLevel(player);
-                }
-                if (!BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId() + ",")) {
-                    player.sendMessage(ChatColor.RED + "You haven't unlocked this kit yet!");
-                    EventSound.playSound(player, EventSound.ACTION_FAIL);
-                }
-            }
-        }
-        return false;
     }
 }

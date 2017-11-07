@@ -4,9 +4,9 @@ package com.battlegroundspvp.worldpvp.playerevents;
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.utils.ColorBuilder;
+import com.battlegroundspvp.utils.Launcher;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.packets.particles.ParticleEffect;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
@@ -14,17 +14,12 @@ import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +48,13 @@ public class PlayerMove implements Listener {
         }
 
         if (event.getTo().getBlock().getType().equals(Material.GOLD_PLATE)) {
-            Location launcherLoc = null;
-            for (Location location : BattlegroundsCore.getInstance().getFLaunchers()) {
-                if (BattlegroundsCore.getInstance().getFLaunchers().contains(event.getTo().getBlock().getRelative(BlockFace.DOWN).getLocation())) {
-                    launcherLoc = location;
+            Launcher launcher = null;
+            for (Launcher launchers : BattlegroundsCore.getLaunchers()) {
+                if (launchers.getLocation().distance(event.getTo().getBlock().getLocation()) < 0.5) {
+                    launcher = launchers;
                 }
             }
-            if (launcherLoc != null) {
+            if (launcher != null) {
                 if (player.getGameMode().equals(GameMode.CREATIVE)) {
                     return;
                 }
@@ -67,16 +62,13 @@ public class PlayerMove implements Listener {
                     return;
                 }
                 if (!KitManager.isPlayerInKit(player)) {
-                    return;
+                    if (launcher.getLocation().distance(launcher.getLocation().getWorld().getSpawnLocation()) > 10) {
+                        return;
+                    }
                 }
-                player.setVelocity(launcherLoc.getDirection().multiply(-3));
-                player.setVelocity(new Vector(player.getVelocity().getX(), 1.0D, player.getVelocity().getZ()));
-                player.playSound(player.getLocation(), Sound.ENTITY_FIREWORK_LAUNCH, 2, 0.3F);
-                WorldPvP.getNoFall().add(player);
-                BukkitTask task = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-                    ParticleEffect.FIREWORKS_SPARK.display(0, 0.5F, 0, 0.05F, 5, player.getLocation(), 30);
-                }, 0L, 1L);
-                plugin.getServer().getScheduler().runTaskLater(plugin, task::cancel, 20);
+                if (launcher.getLocation().distance(launcher.getLocation().getWorld().getSpawnLocation()) > 10)
+                    WorldPvP.getNoFall().add(player);
+                launcher.launch(player);
             }
         }
     }

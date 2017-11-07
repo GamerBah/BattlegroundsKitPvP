@@ -34,7 +34,7 @@ public class Potato extends Kit {
             player.removePotionEffect(effect.getType());
         }
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
-        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 2, true, false));
 
         player.getInventory().setHelmet(new ItemBuilder(Material.POTATO_ITEM).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6));
 

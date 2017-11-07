@@ -15,18 +15,18 @@ public class TeamUtils {
         BattlegroundsKitPvP.pendingTeams.put(target.getName(), sender.getName());
     }
 
-    public static void removePendingRequest(Player target) {
-        if (!BattlegroundsKitPvP.pendingTeams.isEmpty() || BattlegroundsKitPvP.pendingTeams.containsKey(target.getName())) {
-            BattlegroundsKitPvP.pendingTeams.remove(target.getName());
-        }
-    }
-
     public static void createTeam(Player target, Player sender) {
         BattlegroundsKitPvP.currentTeams.put(target.getName(), sender.getName());
         removePendingRequest(target);
         // TODO: Set Glowing through ProtocolLib
         //GlowAPI.setGlowing(sender, GlowAPI.Color.WHITE, target);
         //GlowAPI.setGlowing(target, GlowAPI.Color.WHITE, sender);
+    }
+
+    public static void removePendingRequest(Player target) {
+        if (!BattlegroundsKitPvP.pendingTeams.isEmpty() || BattlegroundsKitPvP.pendingTeams.containsKey(target.getName())) {
+            BattlegroundsKitPvP.pendingTeams.remove(target.getName());
+        }
     }
 
     public static void removeTeam(Player player, Player target) {
@@ -54,6 +54,10 @@ public class TeamUtils {
         }
     }
 
+    public Player getRequester(Player target) {
+        return plugin.getServer().getPlayer(BattlegroundsKitPvP.pendingTeams.get(target.getName()));
+    }
+
     public boolean hasPendingRequest(Player target) {
         return BattlegroundsKitPvP.pendingTeams.containsKey(target.getName());
     }
@@ -65,10 +69,6 @@ public class TeamUtils {
             }
         }
         return false;
-    }
-
-    public Player getRequester(Player target) {
-        return plugin.getServer().getPlayer(BattlegroundsKitPvP.pendingTeams.get(target.getName()));
     }
 
 }

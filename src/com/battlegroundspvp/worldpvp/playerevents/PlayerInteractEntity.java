@@ -1,7 +1,7 @@
 package com.battlegroundspvp.worldpvp.playerevents;
 /* Created by GamerBah on 10/14/2017 */
 
-import com.battlegroundspvp.commands.NPCCommand;
+import com.battlegroundspvp.global.commands.NPCCommand;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.InventoryBuilder;
 import com.battlegroundspvp.worldpvp.menus.QuartermasterMenus;
@@ -18,6 +18,9 @@ public class PlayerInteractEntity {
     public static void interact(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
         Entity entity = event.getRightClicked();
+
+        if (player.getGameMode() == GameMode.SPECTATOR)
+            event.setCancelled(true);
 
         if (CitizensAPI.getNPCRegistry().isNPC(entity)) {
             NPC npc = CitizensAPI.getNPCRegistry().getNPC(entity);

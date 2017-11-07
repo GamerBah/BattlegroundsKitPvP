@@ -6,6 +6,16 @@ import net.md_5.bungee.api.ChatColor;
 
 public class KDRatio {
 
+    public Double getRatio(GameProfile gameProfile) {
+        double ratio = ((double) gameProfile.getKitPvpData().getKills() / (gameProfile.getKitPvpData().getDeaths() > 0 ? (double) gameProfile.getKitPvpData().getDeaths() : 1));
+        return Math.round(ratio * 100.00D) / 100.00D;
+    }
+
+    public Double getRatio(int kills, int deaths) {
+        double ratio = ((double) kills / (deaths > 0 ? (double) deaths : 1));
+        return Math.round(ratio * 100.00D) / 100.00D;
+    }
+
     public ChatColor getRatioColor(GameProfile gameProfile) {
         ChatColor ratioColor = ChatColor.GRAY;
         double ratio = ((double) gameProfile.getKitPvpData().getKills() / (double) gameProfile.getKitPvpData().getDeaths());
@@ -31,10 +41,5 @@ public class KDRatio {
             ratioColor = ChatColor.LIGHT_PURPLE;
         }
         return ratioColor;
-    }
-
-    public Double getRatio(GameProfile gameProfile) {
-        double ratio = ((double) gameProfile.getKitPvpData().getKills() / (gameProfile.getKitPvpData().getDeaths() > 0 ? (double) gameProfile.getKitPvpData().getDeaths() : 1));
-        return Math.round(ratio * 100.00D) / 100.00D;
     }
 }

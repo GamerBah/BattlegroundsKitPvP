@@ -24,6 +24,22 @@ public class KitAbility {
         this.defaultDelay = defaultDelay;
     }
 
+    private void checkStatus(Player player, Status status) {
+        if (!status.isRecharged() && status.isExpired()) {
+            rechargeStatus(player, status);
+        }
+    }
+
+    /**
+     * Invoked when we need to create a status object for a player.
+     *
+     * @param player - the player to create for.
+     * @return The new status object.
+     */
+    protected Status createStatus(Player player) {
+        return new Status(player, defaultCharges);
+    }
+
     /**
      * Retrieve the cooldown time and charge count for a given player.
      *
@@ -38,6 +54,19 @@ public class KitAbility {
         } else {
             checkStatus(player, status);
         }
+        return status;
+    }
+
+    /**
+     * Invoked when a status must be recharged.
+     *
+     * @param player - the player to recharge.
+     * @param status - the status to update.
+     * @return The updated status.
+     */
+    protected Status rechargeStatus(Player player, Status status) {
+        status.setRecharged(true);
+        status.setCharges(defaultCharges);
         return status;
     }
 
@@ -130,44 +159,15 @@ public class KitAbility {
         return current > 0;
     }
 
-    private void checkStatus(Player player, Status status) {
-        if (!status.isRecharged() && status.isExpired()) {
-            rechargeStatus(player, status);
-        }
-    }
-
-    /**
-     * Invoked when a status must be recharged.
-     *
-     * @param player - the player to recharge.
-     * @param status - the status to update.
-     * @return The updated status.
-     */
-    protected Status rechargeStatus(Player player, Status status) {
-        status.setRecharged(true);
-        status.setCharges(defaultCharges);
-        return status;
-    }
-
-    /**
-     * Invoked when we need to create a status object for a player.
-     *
-     * @param player - the player to create for.
-     * @return The new status object.
-     */
-    protected Status createStatus(Player player) {
-        return new Status(player, defaultCharges);
-    }
-
     /**
      * Contains the number of charges and cooldown.
      *
      * @author Kristian Stangeland
      */
     public class Status {
-        private Player player;
         private int charges;
         private double cooldown;
+        private Player player;
         private boolean recharged;
 
         public Status(Player player, int charges) {
@@ -196,6 +196,26 @@ public class KitAbility {
         }
 
         /**
+         * Retrieve the of seconds until the cooldown expires.
+         *
+         * @return Number of milliseconds until expiration.
+         */
+        public double getRemainingTime(Player player) {
+            Status status = playerStatus.get(player);
+            return status.cooldown;
+        }
+
+        /**
+         * Determine if the cooldown has expired.
+         *
+         * @return TRUE if it has, FALSE otherwise.
+         */
+        public boolean isExpired() {
+            double rem = getRemainingTime(player);
+            return rem <= 0.0;
+        }
+
+        /**
          * Determine if this ability has been recharged when the cooldown last expired.
          *
          * @return TRUE if it has, FALSE otherwise.
@@ -220,26 +240,6 @@ public class KitAbility {
          */
         public void setCooldown(double delay) {
             this.cooldown = delay;
-        }
-
-        /**
-         * Determine if the cooldown has expired.
-         *
-         * @return TRUE if it has, FALSE otherwise.
-         */
-        public boolean isExpired() {
-            double rem = getRemainingTime(player);
-            return rem <= 0.0;
-        }
-
-        /**
-         * Retrieve the of seconds until the cooldown expires.
-         *
-         * @return Number of milliseconds until expiration.
-         */
-        public double getRemainingTime(Player player) {
-            Status status = playerStatus.get(player);
-            return status.cooldown;
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.battlegroundspvp.commands;
+package com.battlegroundspvp.global.commands;
 /* Created by GamerBah on 10/14/2017 */
 
 import com.battlegroundspvp.BattlegroundsCore;

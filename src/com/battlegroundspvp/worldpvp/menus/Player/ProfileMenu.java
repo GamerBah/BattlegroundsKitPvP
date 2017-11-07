@@ -5,6 +5,10 @@ import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
 import com.battlegroundspvp.utils.ColorBuilder;
+import com.battlegroundspvp.utils.cosmetics.Cosmetic;
+import com.battlegroundspvp.utils.cosmetics.Gore;
+import com.battlegroundspvp.utils.cosmetics.ParticlePack;
+import com.battlegroundspvp.utils.cosmetics.Warcry;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ClickEvent;
@@ -45,12 +49,20 @@ public class ProfileMenu extends GameInventory {
                         + lastKilledBy.getName() : "--"))
                 .lore(ChatColor.GRAY + "Combat Level: " + ChatColor.DARK_PURPLE + gameProfile.getKitPvpData().getCombatLevel())
                 .lore(" ")
-                .lore(ChatColor.GRAY + "Particle Pack: " + (gameProfile.getTrail().getRarity() == Rarity.COMMON ? ChatColor.DARK_GRAY : gameProfile.getTrail().getRarity().getColor())
-                        + (gameProfile.getTrail().getRarity() == Rarity.EPIC || gameProfile.getTrail().getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "") + gameProfile.getTrail().getName())
-                .lore(ChatColor.GRAY + "Warcry: " + (gameProfile.getWarcry().getRarity() == Rarity.COMMON ? ChatColor.DARK_GRAY : gameProfile.getWarcry().getRarity().getColor())
-                        + (gameProfile.getWarcry().getRarity() == Rarity.EPIC || gameProfile.getWarcry().getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "") + gameProfile.getWarcry().getName())
-                .lore(ChatColor.GRAY + "Gore: " + (gameProfile.getGore().getRarity() == Rarity.COMMON ? ChatColor.DARK_GRAY : gameProfile.getGore().getRarity().getColor())
-                        + (gameProfile.getGore().getRarity() == Rarity.EPIC || gameProfile.getGore().getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "") + gameProfile.getGore().getName())
+                .lore(ChatColor.GRAY + "Particle Pack: " + (ParticlePack.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveTrail()).getRarity() == Rarity.COMMON ? ChatColor.DARK_GRAY :
+                        ParticlePack.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveTrail()).getRarity().getColor())
+                        + (ParticlePack.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveTrail()).getRarity() == Rarity.EPIC ||
+                        ParticlePack.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveTrail()).getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "")
+                        + ParticlePack.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveTrail()).getName())
+                .lore(ChatColor.GRAY + "Warcry: " + (Warcry.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveWarcry()).getRarity() == Rarity.COMMON ? ChatColor.DARK_GRAY :
+                        Warcry.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveWarcry()).getRarity().getColor())
+                        + (Warcry.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveWarcry()).getRarity() == Rarity.EPIC || Warcry.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveWarcry()).getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "")
+                        + Warcry.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveWarcry()).getName())
+                .lore(ChatColor.GRAY + "Gore: " + (Gore.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveGore()).getRarity() == Rarity.COMMON ? ChatColor.DARK_GRAY :
+                        Gore.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveGore()).getRarity().getColor())
+                        + (Gore.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveGore()).getRarity() == Rarity.EPIC ||
+                        Gore.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveGore()).getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "")
+                        + Gore.fromId(Cosmetic.ServerType.KITPVP, gameProfile.getKitPvpData().getActiveGore()).getName())
                 //.lore(ChatColor.GRAY + "Mastery Title: " + (achievement != null ? BoldColor.GOLD.getColor() + "[" + achievement.getTitle() + "]" : "None"))
                 .lore(" ")
                 .lore(ChatColor.GRAY + "Souls: " + ChatColor.AQUA + gameProfile.getKitPvpData().getSouls())

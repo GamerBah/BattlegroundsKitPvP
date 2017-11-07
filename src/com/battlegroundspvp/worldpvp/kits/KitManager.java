@@ -78,51 +78,6 @@ public class KitManager implements Listener {
         WorldPvP.getKitRewards().remove(0);
     }
 
-    public static boolean isPlayerInKit(Player player) {
-        return playersInKits.containsKey(player.getUniqueId());
-    }
-
-    public static boolean isPlayerInKit(Player player, Kit kit) {
-        return playersInKits.containsKey(player.getUniqueId()) && playersInKits.get(player.getUniqueId()).equals(kit);
-    }
-
-    public static boolean isPlayerInKit(Player player, Class<? extends Kit> kit) {
-        return playersInKits.containsKey(player.getUniqueId()) && playersInKits.get(player.getUniqueId()).getClass().equals(kit);
-    }
-
-    @EventHandler
-    public final void onPlayerRespawn(PlayerRespawnEvent event) {
-        Player player = event.getPlayer();
-        if (isPlayerInKit(player)) {
-            previousKit.put(player.getUniqueId(), playersInKits.get(player.getUniqueId()));
-            playersInKits.remove(player.getUniqueId());
-        }
-    }
-
-    @EventHandler
-    public final void onPlayerDeath(PlayerDeathEvent event) {
-        Player player = event.getEntity();
-        if (isPlayerInKit(player)) {
-            previousKit.put(player.getUniqueId(), playersInKits.get(player.getUniqueId()));
-            playersInKits.remove(player.getUniqueId());
-        }
-    }
-
-    public final void onPlayerJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
-        if (isPlayerInKit(player)) {
-            playersInKits.remove(player.getUniqueId());
-        }
-    }
-
-    @EventHandler
-    public final void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        if (isPlayerInKit(player)) {
-            playersInKits.remove(player.getUniqueId());
-        }
-    }
-
     public static PluginCommand getCommand(String name, Plugin plugin) {
         PluginCommand command = null;
 
@@ -153,6 +108,51 @@ public class KitManager implements Listener {
         }
 
         return commandMap;
+    }
+
+    public static boolean isPlayerInKit(Player player, Class<? extends Kit> kit) {
+        return playersInKits.containsKey(player.getUniqueId()) && playersInKits.get(player.getUniqueId()).getClass().equals(kit);
+    }
+
+    public static boolean isPlayerInKit(Player player) {
+        return playersInKits.containsKey(player.getUniqueId());
+    }
+
+    public static boolean isPlayerInKit(Player player, Kit kit) {
+        return playersInKits.containsKey(player.getUniqueId()) && playersInKits.get(player.getUniqueId()).equals(kit);
+    }
+
+    @EventHandler
+    public final void onPlayerDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+        if (isPlayerInKit(player)) {
+            previousKit.put(player.getUniqueId(), playersInKits.get(player.getUniqueId()));
+            playersInKits.remove(player.getUniqueId());
+        }
+    }
+
+    public final void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (isPlayerInKit(player)) {
+            playersInKits.remove(player.getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public final void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        if (isPlayerInKit(player)) {
+            playersInKits.remove(player.getUniqueId());
+        }
+    }
+
+    @EventHandler
+    public final void onPlayerRespawn(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+        if (isPlayerInKit(player)) {
+            previousKit.put(player.getUniqueId(), playersInKits.get(player.getUniqueId()));
+            playersInKits.remove(player.getUniqueId());
+        }
     }
 
 }

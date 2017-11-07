@@ -16,17 +16,6 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 
 public class SpawnProtectListener implements Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        Location damagerLocation = event.getDamager().getLocation();
-        Location damagedLocation = event.getEntity().getLocation();
-
-        if ((damagerLocation.getBlockY() >= 94
-                || (damagedLocation.getBlockY() >= 94))) {
-            event.setCancelled(true);
-        }
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onEntityDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player)) {
@@ -38,6 +27,27 @@ public class SpawnProtectListener implements Listener {
 
         if (location.getBlockY() >= 94) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        Location damagerLocation = event.getDamager().getLocation();
+        Location damagedLocation = event.getEntity().getLocation();
+
+        if ((damagerLocation.getBlockY() >= 94
+                || (damagedLocation.getBlockY() >= 94))) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onProjectileHit(ProjectileHitEvent event) {
+        Entity entity = event.getEntity();
+        Location location = event.getEntity().getLocation();
+
+        if (location.getBlockY() >= 94) {
+            entity.remove();
         }
     }
 
@@ -55,15 +65,5 @@ public class SpawnProtectListener implements Listener {
             BattlegroundsCore.getInstance().getGlobalStats().setTotalArrowsFired(BattlegroundsCore.getInstance().getGlobalStats().getTotalArrowsFired() + 1);
         if (entity instanceof EnderPearl)
             BattlegroundsCore.getInstance().getGlobalStats().setTotalEnderpearlsThrown(BattlegroundsCore.getInstance().getGlobalStats().getTotalEnderpearlsThrown() + 1);
-    }
-
-    @EventHandler
-    public void onProjectileHit(ProjectileHitEvent event) {
-        Entity entity = event.getEntity();
-        Location location = event.getEntity().getLocation();
-
-        if (location.getBlockY() >= 94) {
-            entity.remove();
-        }
     }
 }

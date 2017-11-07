@@ -26,12 +26,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class KitRollRunnable implements Runnable {
 
-    private Thread thread;
-    private final String threadName;
+    private final Inventory inventory;
     private final Player player;
     private final Kit[] rewards;
-    private final Inventory inventory;
+    private final String threadName;
     private int[] rollColumns;
+    private Thread thread;
 
     public KitRollRunnable(Player player, int amount, Inventory inventory) {
         this.player = player;
@@ -68,7 +68,7 @@ public class KitRollRunnable implements Runnable {
             int random = ThreadLocalRandom.current().nextInt(1, 101);
             ArrayList<Kit> rewardable = new ArrayList<>();
             for (Kit kits : WorldPvP.getKitRewards())
-                if (random <= kits.getRarity().getMaxChance() && random >= kits.getRarity().getMinChance())
+                if (random <= kits.getRarity().getChance() && random >= kits.getRarity().getMinChance(Rarity.COMMON))
                     rewardable.add(kits);
             Random y = new Random();
             int z = y.nextInt(rewardable.size());
@@ -105,17 +105,17 @@ public class KitRollRunnable implements Runnable {
 
     public class ItemRunnable implements Runnable {
 
-        private Thread thread;
-        private final String threadName;
-        private final Player player;
-        private final GameProfile gameProfile;
-        private final Kit reward;
         private final int column;
+        private final GameProfile gameProfile;
         private final Inventory inventory;
-        private int sleep = 100;
-        private int sound = 0;
+        private final Player player;
+        private final Kit reward;
+        private final String threadName;
         private int count = 0;
         private boolean last = false;
+        private int sleep = 100;
+        private int sound = 0;
+        private Thread thread;
 
         ItemRunnable(Player player, int column, Kit reward, Inventory inventory) {
             this.threadName = player.getName() + "-Column" + column;
@@ -126,6 +126,13 @@ public class KitRollRunnable implements Runnable {
             this.inventory = inventory;
             if (column == rollColumns[rollColumns.length - 1])
                 last = true;
+        }
+
+        boolean isReward() {
+            if (inventory.getItem(column + 18) != null)
+                if (inventory.getItem(column + 18).getType().equals(reward.getItem().getType()))
+                    return true;
+            return false;
         }
 
         public void run() {
@@ -195,6 +202,7 @@ public class KitRollRunnable implements Runnable {
                                     + ChatColor.GRAY + " kit, so you got " + new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + coins + " Battle Coins");
                             ScoreboardListener scoreboardListener = new ScoreboardListener();
                             scoreboardListener.updateScoreboardCoins(player, coins);
+                            gameProfile.addCoins(coins);
                         } else {
                             gameProfile.getKitPvpData().addOwnedKit(reward.getId());
                         }
@@ -221,13 +229,6 @@ public class KitRollRunnable implements Runnable {
                         }
                     }
             }
-        }
-
-        boolean isReward() {
-            if (inventory.getItem(column + 18) != null)
-                if (inventory.getItem(column + 18).getType().equals(reward.getItem().getType()))
-                    return true;
-            return false;
         }
 
         void start() {

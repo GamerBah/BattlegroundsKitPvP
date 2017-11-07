@@ -39,5 +39,6 @@
     <orderEntry type="library" name="Maven: de.Herbystar:TTA:3.8" level="project" />
     <orderEntry type="library" name="authlib-1.5.16-sources" level="project" />
     <orderEntry type="library" name="BattlegroundsCore" level="project" />
+    <orderEntry type="library" name="EffectLib-5.5" level="project" />
   </component>
 </module>
