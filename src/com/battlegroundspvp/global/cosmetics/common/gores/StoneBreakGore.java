@@ -1,10 +1,10 @@
 package com.battlegroundspvp.global.cosmetics.common.gores;
 /* Created by GamerBah on 10/30/2017 */
 
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.cosmetics.Gore;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

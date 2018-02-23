@@ -3,10 +3,13 @@ package com.battlegroundspvp.global.cosmetics.legendary.trails;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.ColorBuilder;
+import com.battlegroundspvp.global.listeners.CombatListener;
+import com.battlegroundspvp.global.utils.kits.KitAbility;
+import com.battlegroundspvp.runnables.TrailRunnable;
 import com.battlegroundspvp.utils.cosmetics.ParticlePack;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
@@ -23,11 +26,14 @@ public class FlameWarriorTrail extends ParticlePack {
                         .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Flame Warrior")
                         .lore(ChatColor.YELLOW + "Idle Effect: " + ChatColor.GRAY + "A flame helix rotating around you")
                         .lore(ChatColor.YELLOW + "Moving Effect: " + ChatColor.GRAY + "Flames and smoke"),
-                Rarity.LEGENDARY, ServerType.KITPVP, 2L);
+                Rarity.LEGENDARY, ServerType.KITPVP, 3L);
     }
 
     @Override
     public void onMove(Player player) {
+        if (KitAbility.getPlayerStatus().containsKey(player))
+            if (!KitAbility.getPlayerStatus().get(player).abilityIsOver())
+                return;
         ParticleEffect.FLAME.display(0, 0, 0, 0, 1, player.getLocation().add(0, 0.1, 0), 25);
         ParticleEffect.FLAME.display(0, 0, 0, 0, 1, player.getLocation().add(0, 0.2, 0), 25);
         ParticleEffect.FLAME.display(0, 0, 0, 0, 1, player.getLocation().add(0, 0.3, 0), 25);
@@ -36,23 +42,24 @@ public class FlameWarriorTrail extends ParticlePack {
 
     @Override
     public void run() {
-        phi += Math.PI / 16;
-        double x = 0, y = 0, z = 0;
+        phi += Math.PI / 24;
         for (double t = 0; t <= 2 * Math.PI; t = t + Math.PI / 12) {
             for (double i = 0; i <= 2; i = i + 1) {
-                x = 0.5 * (2 * Math.PI - t) * 0.375 * Math.cos(t + phi + i * Math.PI);
-                y = 0.425 * t;
-                z = 0.5 * (2 * Math.PI - t) * 0.375 * Math.sin(t + phi + i * Math.PI);
-            }
-        }
-        for (Player player : BattlegroundsKitPvP.getInstance().getServer().getOnlinePlayers()) {
-            if (!BattlegroundsCore.getAfk().contains(player.getUniqueId()))
-                if (BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getActiveTrail() == this.getId()) {
-                    Location location = player.getLocation();
-                    location.add(x, y, z);
-                    ParticleEffect.FLAME.display(0, 0, 0, 0, 1, location, 25);
-                    location.subtract(x, y, z);
+                // w1 * (h * pi - t) * w2 * cos(...)
+                double x = 0.5 * (2 * Math.PI - t) * 0.375 * Math.cos(t + phi + i * Math.PI);
+                double y = 0.425 * t;
+                double z = 0.5 * (2 * Math.PI - t) * 0.375 * Math.sin(t + phi + i * Math.PI);
+                for (Player player : BattlegroundsKitPvP.getInstance().getServer().getOnlinePlayers()) {
+                    if (!BattlegroundsCore.getAfk().contains(player.getUniqueId()) && TrailRunnable.getStill().contains(player))
+                        if (!CombatListener.getTagged().containsKey(player.getUniqueId()))
+                            if (BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getActiveTrail() == this.getId()) {
+                                Location location = player.getLocation();
+                                location.add(x, y, z);
+                                ParticleEffect.FLAME.display(0, 0, 0, 0, 1, location, 25);
+                                location.subtract(x, y, z);
+                            }
                 }
+            }
         }
     }
 }

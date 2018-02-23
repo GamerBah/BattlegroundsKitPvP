@@ -14,6 +14,7 @@ import com.battlegroundspvp.worldpvp.playerevents.*;
 import lombok.Getter;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class WorldPvP {
     private static List<Player> noFall = new ArrayList<>();
     @Getter
     private static HashMap<Player, Integer> rolling = new HashMap<>();
+    @Getter
+    private static HashMap<Player, Inventory> rollInventory = new HashMap<>();
 
     public static HashMap<String, CommandExecutor> getCommands() {
         // DON'T FORGET TO REGISTER THE COMMAND IN THE CORE PLUGIN.YML!

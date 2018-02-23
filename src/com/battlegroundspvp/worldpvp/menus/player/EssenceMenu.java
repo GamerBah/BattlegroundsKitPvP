@@ -1,15 +1,14 @@
-package com.battlegroundspvp.worldpvp.menus.Player;
+package com.battlegroundspvp.worldpvp.menus.player;
 /* Created by GamerBah on 8/17/2016 */
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.donations.DonationMessages;
 import com.battlegroundspvp.administration.donations.Essence;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.*;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -18,13 +17,12 @@ public class EssenceMenu extends GameInventory {
     public EssenceMenu(Player player) {
         super("Battle Essences", new ProfileMenu(player));
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
-        setInventory(Bukkit.getServer().createInventory(null, 54, getInventory().getName()));
         int oneSlot = 0, threeSlot = 18, sixSlot = 36;
 
         for (int f = 0; f < gameProfile.getEssenceData().getOne50(); f++) {
             Essence.Type essence = Essence.Type.ONE_HOUR_50_PERCENT;
             if (oneSlot < 18) {
-                addClickableItem(oneSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(1)
+                addButton(oneSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(1)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -50,7 +48,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getOne100(); f++) {
             Essence.Type essence = Essence.Type.ONE_HOUR_100_PERCENT;
             if (oneSlot < 18) {
-                addClickableItem(oneSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(1)
+                addButton(oneSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(1)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -76,7 +74,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getOne150(); f++) {
             Essence.Type essence = Essence.Type.ONE_HOUR_150_PERCENT;
             if (oneSlot < 18) {
-                addClickableItem(oneSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(1)
+                addButton(oneSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(1)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -103,7 +101,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getThree50(); f++) {
             Essence.Type essence = Essence.Type.THREE_HOUR_50_PERCENT;
             if (threeSlot < 36) {
-                addClickableItem(threeSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(3)
+                addButton(threeSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(3)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -129,7 +127,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getThree100(); f++) {
             Essence.Type essence = Essence.Type.THREE_HOUR_100_PERCENT;
             if (threeSlot < 36) {
-                addClickableItem(threeSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(3)
+                addButton(threeSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(3)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -155,7 +153,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getThree150(); f++) {
             Essence.Type essence = Essence.Type.THREE_HOUR_150_PERCENT;
             if (threeSlot < 36) {
-                addClickableItem(threeSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(3)
+                addButton(threeSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(3)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -182,7 +180,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getSix50(); f++) {
             Essence.Type essence = Essence.Type.SIX_HOUR_50_PERCENT;
             if (sixSlot < 45) {
-                addClickableItem(sixSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(6)
+                addButton(sixSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(6)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -208,7 +206,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getSix100(); f++) {
             Essence.Type essence = Essence.Type.SIX_HOUR_100_PERCENT;
             if (sixSlot < 45) {
-                addClickableItem(sixSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(6)
+                addButton(sixSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(6)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -234,7 +232,7 @@ public class EssenceMenu extends GameInventory {
         for (int f = 0; f < gameProfile.getEssenceData().getSix150(); f++) {
             Essence.Type essence = Essence.Type.SIX_HOUR_150_PERCENT;
             if (sixSlot < 45) {
-                addClickableItem(sixSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(6)
+                addButton(sixSlot++, new ItemBuilder(Material.BLAZE_POWDER).name(essence.getDisplayName(true)).amount(6)
                         .lore(ChatColor.GRAY + "Grants a server-wide " + essence.getChatColor() + essence.getPercent() + "% increase" + ChatColor.GRAY + " to")
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
@@ -257,7 +255,7 @@ public class EssenceMenu extends GameInventory {
                         })));
             }
         }
-        addClickableItem(49, InventoryItems.back.clone()
+        addButton(49, InventoryItems.back.clone()
                 .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                     new InventoryBuilder(player, getPreviousInventory()).open();
                     EventSound.playSound(player, EventSound.INVENTORY_GO_BACK);

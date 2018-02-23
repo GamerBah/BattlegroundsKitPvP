@@ -1,10 +1,10 @@
-package com.battlegroundspvp.worldpvp.kits.Epic;
+package com.battlegroundspvp.worldpvp.kits.epic;
 /* Created by GamerBah on 8/27/2016 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

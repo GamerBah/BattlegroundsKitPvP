@@ -8,8 +8,8 @@ import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.InventoryBuilder;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.menus.KitSelectorMenu;
-import com.battlegroundspvp.worldpvp.menus.Player.ProfileMenu;
-import com.battlegroundspvp.worldpvp.menus.Player.SettingsMenu;
+import com.battlegroundspvp.worldpvp.menus.player.ProfileMenu;
+import com.battlegroundspvp.worldpvp.menus.player.SettingsMenu;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -52,7 +52,7 @@ public class PlayerInteractItem {
                 return;
             }
             if (item.getType().equals(Material.NETHER_STAR)) {
-                new InventoryBuilder(player, new KitSelectorMenu(player)).open();
+                new KitSelectorMenu(player).build(player).open();
                 EventSound.playSound(player, EventSound.INVENTORY_OPEN_MENU);
             } else if (item.getType().equals(Material.BOOK)) {
                 if (KitManager.getPreviousKit().containsKey(player.getUniqueId())) {

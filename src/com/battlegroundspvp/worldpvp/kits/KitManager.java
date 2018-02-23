@@ -5,20 +5,17 @@ package com.battlegroundspvp.worldpvp.kits;
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.worldpvp.WorldPvP;
-import com.battlegroundspvp.worldpvp.kits.Common.Bowman;
-import com.battlegroundspvp.worldpvp.kits.Common.Scout;
-import com.battlegroundspvp.worldpvp.kits.Common.Tank;
-import com.battlegroundspvp.worldpvp.kits.Common.Warrior;
-import com.battlegroundspvp.worldpvp.kits.Epic.Baker;
-import com.battlegroundspvp.worldpvp.kits.Epic.Enderknight;
-import com.battlegroundspvp.worldpvp.kits.Epic.GlassCannon;
-import com.battlegroundspvp.worldpvp.kits.Epic.Sniper;
-import com.battlegroundspvp.worldpvp.kits.Legendary.Ninja;
-import com.battlegroundspvp.worldpvp.kits.Legendary.Potato;
-import com.battlegroundspvp.worldpvp.kits.Legendary.UltraTank;
-import com.battlegroundspvp.worldpvp.kits.Rare.Blaze;
-import com.battlegroundspvp.worldpvp.kits.Rare.Breaker;
-import com.battlegroundspvp.worldpvp.kits.Rare.HonorGuard;
+import com.battlegroundspvp.worldpvp.kits.common.*;
+import com.battlegroundspvp.worldpvp.kits.epic.Baker;
+import com.battlegroundspvp.worldpvp.kits.epic.Enderknight;
+import com.battlegroundspvp.worldpvp.kits.epic.GlassCannon;
+import com.battlegroundspvp.worldpvp.kits.epic.Sniper;
+import com.battlegroundspvp.worldpvp.kits.legendary.Ninja;
+import com.battlegroundspvp.worldpvp.kits.legendary.Potato;
+import com.battlegroundspvp.worldpvp.kits.legendary.UltraTank;
+import com.battlegroundspvp.worldpvp.kits.rare.Blaze;
+import com.battlegroundspvp.worldpvp.kits.rare.Breaker;
+import com.battlegroundspvp.worldpvp.kits.rare.HonorGuard;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
@@ -52,6 +49,7 @@ public class KitManager implements Listener {
         kits.add(new Bowman());
         kits.add(new Tank());
         kits.add(new Scout());
+        kits.add(new Healer());
 
         // Rare Kits
         kits.add(new Breaker());
@@ -120,6 +118,13 @@ public class KitManager implements Listener {
 
     public static boolean isPlayerInKit(Player player, Kit kit) {
         return playersInKits.containsKey(player.getUniqueId()) && playersInKits.get(player.getUniqueId()).equals(kit);
+    }
+
+    public static Kit fromId(int id) {
+        for (Kit kit : kits)
+            if (kit.getId() == id)
+                return kit;
+        return new Warrior();
     }
 
     @EventHandler

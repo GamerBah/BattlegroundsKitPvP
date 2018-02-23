@@ -1,57 +1,54 @@
-package com.battlegroundspvp.worldpvp.menus.Cosmetics;
+package com.battlegroundspvp.worldpvp.menus.cosmetics;
 /* Created by GamerBah on 8/20/2016 */
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.cosmetics.Cosmetic;
 import com.battlegroundspvp.utils.cosmetics.CosmeticManager;
-import com.battlegroundspvp.utils.cosmetics.defaultcosmetics.DefaultWarcry;
+import com.battlegroundspvp.utils.cosmetics.defaultcosmetics.DefaultParticlePack;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.*;
-import com.battlegroundspvp.worldpvp.menus.Player.ProfileMenu;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.worldpvp.menus.player.ProfileMenu;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class WarcryMenu extends GameInventory {
+public class TrailMenu extends GameInventory {
 
-    public WarcryMenu(Player player) {
-        super("Warcries", new ProfileMenu(player));
-        setInventory(Bukkit.getServer().createInventory(null, 36, getInventory().getName()));
-
+    public TrailMenu(Player player) {
+        super("Particle Packs", 36, new ProfileMenu(player));
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
 
         for (int i = 18; i < 27; i++) {
-            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+            addButton(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
                     .durability(7)
-                    .name(ChatColor.GRAY + "Common Warcry")
+                    .name(ChatColor.GRAY + "Common Particle Pack")
                     .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
                     .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
 
         for (int i = 9; i < 18; i++) {
-            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+            addButton(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
                     .durability(11)
-                    .name(ChatColor.BLUE + "Rare Warcry")
+                    .name(ChatColor.BLUE + "Rare Particle Pack")
                     .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
                     .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
 
         for (int i = 0; i < 5; i++) {
-            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+            addButton(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
                     .durability(1)
-                    .name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Epic Warcry")
+                    .name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Epic Particle Pack")
                     .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
                     .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
 
         for (int i = 5; i < 9; i++) {
-            addClickableItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
+            addButton(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
                     .durability(2)
-                    .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Legendary Warcry")
+                    .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Legendary Particle Pack")
                     .lore(ChatColor.GRAY + "Random unlock from a Battle Crate")
                     .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
         }
@@ -59,43 +56,43 @@ public class WarcryMenu extends GameInventory {
         int commonSlot = 18, rareSlot = 9, epicSlot = 0, legendarySlot = 5;
 
         for (Cosmetic cosmetic : CosmeticManager.getRewardableCosmetics()) {
-            if (cosmetic.getEffectType().equals(Cosmetic.EffectType.KILL_SOUND)) {
-                if (gameProfile.getCosmeticsData().getKitPvpCosmetics().contains(cosmetic.getId())) {
-                    if (cosmetic.getRarity() == Rarity.COMMON) addClickableItem(commonSlot++,
+            if (cosmetic.getEffectType().equals(Cosmetic.EffectType.PARTICLE_PACK)) {
+                if (gameProfile.getCosmetics().contains(cosmetic.getId())) {
+                    if (cosmetic.getRarity() == Rarity.COMMON) addButton(commonSlot++,
                             cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                                 EventSound.playSound(player, EventSound.ACTION_SUCCESS);
-                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
-                                gameProfile.getKitPvpData().setActiveWarcry(cosmetic.getId());
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack" + ChatColor.GRAY + "!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
                             })));
-                    if (cosmetic.getRarity() == Rarity.RARE) addClickableItem(rareSlot++,
+                    if (cosmetic.getRarity() == Rarity.RARE) addButton(rareSlot++,
                             cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                                 EventSound.playSound(player, EventSound.ACTION_SUCCESS);
-                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
-                                gameProfile.getKitPvpData().setActiveWarcry(cosmetic.getId());
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack" + ChatColor.GRAY + "!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
                             })));
-                    if (cosmetic.getRarity() == Rarity.EPIC) addClickableItem(epicSlot++,
+                    if (cosmetic.getRarity() == Rarity.EPIC) addButton(epicSlot++,
                             cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                                 EventSound.playSound(player, EventSound.ACTION_SUCCESS);
-                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
-                                gameProfile.getKitPvpData().setActiveWarcry(cosmetic.getId());
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack" + ChatColor.GRAY + "!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
                             })));
-                    if (cosmetic.getRarity() == Rarity.LEGENDARY) addClickableItem(legendarySlot++,
+                    if (cosmetic.getRarity() == Rarity.LEGENDARY) addButton(legendarySlot++,
                             cosmetic.getItem().clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                                 EventSound.playSound(player, EventSound.ACTION_SUCCESS);
-                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack!");
-                                gameProfile.getKitPvpData().setActiveWarcry(cosmetic.getId());
+                                player.sendMessage(ChatColor.GRAY + "Equipped the " + cosmetic.getName() + " Particle Pack" + ChatColor.GRAY + "!");
+                                gameProfile.getKitPvpData().setActiveTrail(cosmetic.getId());
                             })));
                 }
             }
         }
 
-        addClickableItem(35, new DefaultWarcry().getItem()
+        addButton(35, new DefaultParticlePack().getItem()
                 .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                     EventSound.playSound(player, EventSound.ACTION_FAIL);
-                    player.sendMessage(ChatColor.GRAY + "Equipped the default Warcry");
-                    gameProfile.getKitPvpData().setActiveWarcry(new DefaultWarcry().getId());
+                    player.sendMessage(ChatColor.GRAY + "Removed your active Particle Pack");
+                    gameProfile.getKitPvpData().setActiveTrail(new DefaultParticlePack().getId());
                 })));
-        addClickableItem(27, InventoryItems.back.clone()
+        addButton(27, InventoryItems.back.clone()
                 .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
                     new InventoryBuilder(player, getPreviousInventory()).open();
                     EventSound.playSound(player, EventSound.INVENTORY_GO_BACK);

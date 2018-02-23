@@ -1,13 +1,13 @@
-package com.battlegroundspvp.worldpvp.kits.Legendary;
+package com.battlegroundspvp.worldpvp.kits.legendary;
 /* Created by GamerBah on 9/13/2016 */
 
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
 import com.battlegroundspvp.runnables.UpdateRunnable;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
@@ -26,6 +26,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Ninja extends Kit {
+
     private KitAbility kitAbility = new KitAbility(1, 25.0);
 
     public Ninja() {
@@ -60,6 +61,7 @@ public class Ninja extends Kit {
                         return;
                     }
 
+                    kitAbility.getStatus(player).setAbilityIsOver(false);
                     for (Player players : Bukkit.getServer().getOnlinePlayers()) {
                         players.hidePlayer(player);
                         Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
@@ -67,6 +69,7 @@ public class Ninja extends Kit {
                                 ParticleEffect.SMOKE_LARGE.display(0.3F, 0.5F, 0.3F, 0, 70, player.getLocation().add(0, 0.5, 0), 35);
                                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 0.5F, 1.3F);
                                 players.showPlayer(player);
+                                kitAbility.getStatus(player).setAbilityIsOver(true);
                             }
                         }, 100L);
                     }

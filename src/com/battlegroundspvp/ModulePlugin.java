@@ -25,11 +25,13 @@ import com.battlegroundspvp.utils.cosmetics.ParticlePack;
 import com.battlegroundspvp.utils.cosmetics.Warcry;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
+import com.battlegroundspvp.worldpvp.playerevents.PlayerCloseInventory;
 import com.battlegroundspvp.worldpvp.playerevents.PlayerInteractEntity;
 import com.battlegroundspvp.worldpvp.playerevents.PlayerInteractItem;
 import com.battlegroundspvp.worldpvp.playerevents.PlayerRespawn;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -120,6 +122,11 @@ public class ModulePlugin extends BattleModule {
     @Override
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         PlayerRespawn.respawn(event);
+    }
+
+    @Override
+    public void onPlayerCloseInventory(InventoryCloseEvent event) {
+        PlayerCloseInventory.close(event);
     }
 
     @Override

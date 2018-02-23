@@ -3,9 +3,9 @@ package com.battlegroundspvp.worldpvp.playerevents;
 
 import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import net.md_5.bungee.api.ChatColor;

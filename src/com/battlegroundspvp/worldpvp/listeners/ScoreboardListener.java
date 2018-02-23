@@ -4,7 +4,7 @@ package com.battlegroundspvp.worldpvp.listeners;
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
-import com.battlegroundspvp.utils.ColorBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import com.battlegroundspvp.worldpvp.utils.KDRatio;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
@@ -196,7 +196,8 @@ public class ScoreboardListener implements Listener {
         Scoreboard board = player.getScoreboard();
         Objective objective = board.getObjective("PlayerData");
         getCoins().put(player.getUniqueId(), gameProfile.getCoins());
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalCoinsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalCoinsEarned() + amount);
+        // TODO:
+        // BattlegroundsCore.getInstance().getGlobalStats().setTotalCoinsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalCoinsEarned() + amount);
         board.resetScores(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Battle Coins: " + ChatColor.GRAY + coins.get(player.getUniqueId()));
         objective.getScore(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Battle Coins: " + ChatColor.GRAY + (gameProfile.getCoins() + amount)).setScore(2);
         player.setScoreboard(board);
@@ -209,7 +210,8 @@ public class ScoreboardListener implements Listener {
         KDRatio kdRatio = new KDRatio();
         getDeaths().put(player.getUniqueId(), gameProfile.getKitPvpData().getDeaths());
         getKds().put(player.getUniqueId(), ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile));
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalDeaths(BattlegroundsCore.getInstance().getGlobalStats().getTotalDeaths() + amount);
+        // TODO:
+        // BattlegroundsCore.getInstance().getGlobalStats().setTotalDeaths(BattlegroundsCore.getInstance().getGlobalStats().getTotalDeaths() + amount);
         board.resetScores(new ColorBuilder(ChatColor.RED).bold().create() + "Deaths: " + ChatColor.GRAY + deaths.get(player.getUniqueId()));
         board.resetScores(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + kds.get(player.getUniqueId()));
         objective.getScore(new ColorBuilder(ChatColor.RED).bold().create() + "Deaths: " + ChatColor.GRAY + (gameProfile.getKitPvpData().getDeaths() + amount)).setScore(6);
@@ -225,7 +227,8 @@ public class ScoreboardListener implements Listener {
         KDRatio kdRatio = new KDRatio();
         getKills().put(player.getUniqueId(), gameProfile.getKitPvpData().getKills());
         getKds().put(player.getUniqueId(), ChatColor.GRAY + "" + kdRatio.getRatio(gameProfile));
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalKills(BattlegroundsCore.getInstance().getGlobalStats().getTotalKills() + amount);
+        // TODO:
+        // BattlegroundsCore.getInstance().getGlobalStats().setTotalKills(BattlegroundsCore.getInstance().getGlobalStats().getTotalKills() + amount);
         board.resetScores(new ColorBuilder(ChatColor.GREEN).bold().create() + "Kills: " + ChatColor.GRAY + kills.get(player.getUniqueId()));
         board.resetScores(new ColorBuilder(ChatColor.YELLOW).bold().create() + "K/D Ratio: " + kds.get(player.getUniqueId()));
         objective.getScore(new ColorBuilder(ChatColor.GREEN).bold().create() + "Kills: " + ChatColor.GRAY + (gameProfile.getKitPvpData().getKills() + amount)).setScore(7);
@@ -254,7 +257,8 @@ public class ScoreboardListener implements Listener {
         Scoreboard board = player.getScoreboard();
         Objective objective = board.getObjective("PlayerData");
         getSouls().put(player.getUniqueId(), gameProfile.getKitPvpData().getSouls());
-        BattlegroundsCore.getInstance().getGlobalStats().setTotalSoulsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalSoulsEarned() + amount);
+        // TODO:
+        // BattlegroundsCore.getInstance().getGlobalStats().setTotalSoulsEarned(BattlegroundsCore.getInstance().getGlobalStats().getTotalSoulsEarned() + amount);
         board.resetScores(new ColorBuilder(ChatColor.AQUA).bold().create() + "Souls: " + ChatColor.GRAY + souls.get(player.getUniqueId()));
         objective.getScore(new ColorBuilder(ChatColor.AQUA).bold().create() + "Souls: " + ChatColor.GRAY + (gameProfile.getKitPvpData().getSouls() + amount)).setScore(3);
         player.setScoreboard(board);

@@ -4,6 +4,7 @@ package com.battlegroundspvp.worldpvp.playerevents;
 import com.battlegroundspvp.global.commands.NPCCommand;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.InventoryBuilder;
+import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.menus.QuartermasterMenus;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
@@ -35,6 +36,10 @@ public class PlayerInteractEntity {
                 return;
             }
 
+            if (WorldPvP.getRollInventory().containsKey(player)) {
+                player.openInventory(WorldPvP.getRollInventory().get(player));
+                return;
+            }
             new InventoryBuilder(player, new QuartermasterMenus().new SelectionMenu(player)).open();
         }
     }

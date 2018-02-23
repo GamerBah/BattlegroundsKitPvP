@@ -63,10 +63,10 @@ public abstract class Kit implements Listener, CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (command.getName().equalsIgnoreCase(getName().replaceAll("\\s+", ""))) {
-                if (!FreezeCommand.frozenPlayers.contains(player) && !FreezeCommand.frozen && BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId() + ",")) {
+                if (!FreezeCommand.frozenPlayers.contains(player) && !FreezeCommand.frozen && BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId())) {
                     wearCheckLevel(player);
                 }
-                if (!BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId() + ",")) {
+                if (!BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getOwnedKits().contains(this.getId())) {
                     player.sendMessage(ChatColor.RED + "You haven't unlocked this kit yet!");
                     EventSound.playSound(player, EventSound.ACTION_FAIL);
                 }

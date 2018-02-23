@@ -5,7 +5,7 @@ import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
 import com.battlegroundspvp.runnables.UpdateRunnable;
-import com.battlegroundspvp.utils.ColorBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import de.Herbystar.TTA.TTA_Methods;
@@ -70,9 +70,7 @@ public class CombatListener implements Listener {
     public boolean isTeamed(Player damaged, Player damager) {
         if (BattlegroundsKitPvP.currentTeams.containsKey(damaged.getName()) || BattlegroundsKitPvP.currentTeams.containsKey(damager.getName())) {
             if (BattlegroundsKitPvP.currentTeams.get(damaged.getName()).equals(damager.getName()) || BattlegroundsKitPvP.currentTeams.get(damager.getName()).equals(damaged.getName())) {
-                if (plugin.getServer().getOnlinePlayers().size() >= 1) {
-                    return true;
-                }
+                return plugin.getServer().getOnlinePlayers().size() >= 1;
             } else {
                 return false;
             }

@@ -7,11 +7,11 @@ import com.battlegroundspvp.administration.commands.ChatCommands;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.global.listeners.CombatListener;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.cosmetics.Cosmetic;
 import com.battlegroundspvp.utils.cosmetics.Gore;
 import com.battlegroundspvp.utils.cosmetics.Warcry;
 import com.battlegroundspvp.utils.cosmetics.defaultcosmetics.DefaultGore;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
 import com.battlegroundspvp.worldpvp.runnables.RespawnTimer;
 import com.battlegroundspvp.worldpvp.utils.ComponentMessages;
@@ -179,7 +179,8 @@ public class PlayerDeath implements Listener {
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "The point of the game is to" + ChatColor.ITALIC + "stay alive", 5, 80, 0);
                 }
             }
-            BattlegroundsCore.getInstance().getGlobalStats().setTotalSuicides(BattlegroundsCore.getInstance().getGlobalStats().getTotalSuicides() + 1);
+            // TODO:
+            // BattlegroundsCore.getInstance().getGlobalStats().setTotalSuicides(BattlegroundsCore.getInstance().getGlobalStats().getTotalSuicides() + 1);
             return;
         }
 
@@ -320,7 +321,8 @@ public class PlayerDeath implements Listener {
                         ChatColor.YELLOW + "You reached a " + new ColorBuilder(ChatColor.GOLD).bold().create() + BattlegroundsKitPvP.killStreak.get(player.getUniqueId())
                                 + ChatColor.YELLOW + " killstreak! Nice!", 5, 60, 0);
 
-                BattlegroundsCore.getInstance().getGlobalStats().setTotalKillstreaksEnded(BattlegroundsCore.getInstance().getGlobalStats().getTotalKillstreaksEnded() + 1);
+                // TODO:
+                // BattlegroundsCore.getInstance().getGlobalStats().setTotalKillstreaksEnded(BattlegroundsCore.getInstance().getGlobalStats().getTotalKillstreaksEnded() + 1);
             }
             BattlegroundsKitPvP.killStreak.remove(player.getUniqueId());
         }

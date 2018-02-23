@@ -1,4 +1,4 @@
-package com.battlegroundspvp.worldpvp.kits.Common;
+package com.battlegroundspvp.worldpvp.kits.common;
 /* Created by GamerBah on 8/27/2016 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;

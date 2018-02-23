@@ -1,6 +1,7 @@
 package com.battlegroundspvp.global.cosmetics.common.trails;
 /* Created by GamerBah on 10/27/2017 */
 
+import com.battlegroundspvp.global.utils.kits.KitAbility;
 import com.battlegroundspvp.utils.cosmetics.ParticlePack;
 import com.battlegroundspvp.utils.enums.Rarity;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
@@ -21,6 +22,9 @@ public class BubblyTrail extends ParticlePack {
 
     @Override
     public void onMove(Player player) {
+        if (KitAbility.getPlayerStatus().containsKey(player))
+            if (!KitAbility.getPlayerStatus().get(player).abilityIsOver())
+                return;
         ParticleEffect.WATER_SPLASH.display(0.1F, 0.5F, 0.1F, 0, 10, player.getLocation(), 25);
     }
 

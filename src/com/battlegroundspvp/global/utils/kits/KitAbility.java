@@ -2,7 +2,7 @@ package com.battlegroundspvp.global.utils.kits;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.ColorBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
@@ -162,19 +162,21 @@ public class KitAbility {
     /**
      * Contains the number of charges and cooldown.
      *
-     * @author Kristian Stangeland
+     * @author Kristian Stangeland, GamerBah
      */
     public class Status {
         private int charges;
         private double cooldown;
         private Player player;
         private boolean recharged;
+        private boolean abilityIsOver;
 
         public Status(Player player, int charges) {
             this.player = player;
             this.charges = charges;
             this.cooldown = 0.00;
             this.recharged = true;
+            this.abilityIsOver = true;
         }
 
         /**
@@ -240,6 +242,24 @@ public class KitAbility {
          */
         public void setCooldown(double delay) {
             this.cooldown = delay;
+        }
+
+        /**
+         * Determine if the ability has expired (for timed abilities).
+         *
+         * @return abilityIsOver - whether or not the ability has ended.
+         */
+        public boolean abilityIsOver() {
+            return abilityIsOver;
+        }
+
+        /**
+         * Set if this ability has expired.
+         *
+         * @param abilityIsOver - whether or not the ability has expired (for timed abilities).
+         */
+        public void setAbilityIsOver(boolean abilityIsOver) {
+            this.abilityIsOver = abilityIsOver;
         }
     }
 }

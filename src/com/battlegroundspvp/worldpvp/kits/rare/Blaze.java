@@ -1,4 +1,4 @@
-package com.battlegroundspvp.worldpvp.kits.Rare;
+package com.battlegroundspvp.worldpvp.kits.rare;
 /* Created by GamerBah on 9/13/2016 */
 
 import com.battlegroundspvp.BattlegroundsCore;

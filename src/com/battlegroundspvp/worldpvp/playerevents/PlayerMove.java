@@ -3,10 +3,10 @@ package com.battlegroundspvp.worldpvp.playerevents;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.ColorBuilder;
 import com.battlegroundspvp.utils.Launcher;
 import com.battlegroundspvp.utils.enums.EventSound;
 import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.utils.messages.ColorBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
