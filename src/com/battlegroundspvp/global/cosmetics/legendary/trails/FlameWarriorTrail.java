@@ -5,11 +5,11 @@ import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.global.listeners.CombatListener;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.runnables.TrailRunnable;
-import com.battlegroundspvp.utils.cosmetics.ParticlePack;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.runnable.game.TrailRunnable;
+import com.battlegroundspvp.util.cosmetic.ParticlePack;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
@@ -21,9 +21,9 @@ public class FlameWarriorTrail extends ParticlePack {
     private double phi = 0;
 
     public FlameWarriorTrail() {
-        super(420, new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Flame Warrior",
+        super(420, new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Flame Warrior",
                 new ItemBuilder(Material.FLINT_AND_STEEL)
-                        .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Flame Warrior")
+                        .name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Flame Warrior")
                         .lore(ChatColor.YELLOW + "Idle Effect: " + ChatColor.GRAY + "A flame helix rotating around you")
                         .lore(ChatColor.YELLOW + "Moving Effect: " + ChatColor.GRAY + "Flames and smoke"),
                 Rarity.LEGENDARY, ServerType.KITPVP, 3L);

@@ -3,13 +3,13 @@ package com.battlegroundspvp.worldpvp.playerevents;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.Launcher;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.Launcher;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
@@ -80,7 +80,7 @@ public class PlayerMove implements Listener {
         if (event.getCause().equals(PlayerTeleportEvent.TeleportCause.ENDER_PEARL)) {
             if (event.getTo().getBlockY() >= 94 || event.getTo().getBlock().getType().equals(Material.BARRIER)) {
                 event.setCancelled(true);
-                player.getInventory().addItem(new ItemBuilder(Material.ENDER_PEARL).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Enderpearl"));
+                player.getInventory().addItem(new ItemBuilder(Material.ENDER_PEARL).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Enderpearl"));
             }
         }
     }

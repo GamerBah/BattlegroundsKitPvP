@@ -4,14 +4,14 @@ package com.battlegroundspvp.worldpvp.runnables;
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.InventoryBuilder;
-import com.battlegroundspvp.utils.inventories.InventoryItems;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.gui.InventoryItems;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.menus.QuartermasterMenus;
+import com.gamerbah.inventorytoolkit.InventoryBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
@@ -188,7 +188,7 @@ public class KitRollRunnable implements Runnable {
                         boolean duplicate = gameProfile.getKitPvpData().getOwnedKits().contains(reward.getId());
                         player.sendMessage(ChatColor.WHITE + "\u00BB " + ChatColor.GRAY + "You received the " + reward.getRarity().getColor() + (reward.getRarity() == Rarity.EPIC
                                 || reward.getRarity() == Rarity.LEGENDARY ? "" + ChatColor.BOLD : "") + reward.getName()
-                                + ChatColor.GRAY + " kit!" + (duplicate ? new ColorBuilder(ChatColor.RED).bold().create() + " \u2021 DUPLICATE \u2021" : ""));
+                                + ChatColor.GRAY + " kit!" + (duplicate ? new MessageBuilder(ChatColor.RED).bold().create() + " \u2021 DUPLICATE \u2021" : ""));
 
                         if (duplicate) gameProfile.getKitPvpData().addDuplicateKit(reward.getId());
                         else gameProfile.getKitPvpData().addOwnedKit(reward.getId());
@@ -207,8 +207,7 @@ public class KitRollRunnable implements Runnable {
                         }
 
                         if (last) {
-                            if (WorldPvP.getRolling().containsKey(player))
-                                WorldPvP.getRolling().remove(player);
+                            WorldPvP.getRolling().remove(player);
                             Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(BattlegroundsCore.getInstance(), () -> {
                                 if (WorldPvP.getRollInventory().containsKey(player)) {
                                     if (WorldPvP.getRollInventory().get(player) == inventory) {

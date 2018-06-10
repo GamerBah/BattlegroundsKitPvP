@@ -1,15 +1,15 @@
 package com.battlegroundspvp.worldpvp.playerevents;
 /* Created by GamerBah on 10/13/2017 */
 
-import com.battlegroundspvp.administration.commands.FreezeCommand;
-import com.battlegroundspvp.runnables.AFKRunnable;
-import com.battlegroundspvp.runnables.UpdateRunnable;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.inventories.InventoryBuilder;
+import com.battlegroundspvp.administration.command.FreezeCommand;
+import com.battlegroundspvp.runnable.misc.UpdateRunnable;
+import com.battlegroundspvp.runnable.timer.AFKRunnable;
+import com.battlegroundspvp.util.enums.EventSound;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.menus.KitSelectorMenu;
 import com.battlegroundspvp.worldpvp.menus.player.ProfileMenu;
 import com.battlegroundspvp.worldpvp.menus.player.SettingsMenu;
+import com.gamerbah.inventorytoolkit.InventoryBuilder;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;

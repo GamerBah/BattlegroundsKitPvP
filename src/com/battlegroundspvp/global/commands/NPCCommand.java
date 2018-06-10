@@ -4,7 +4,7 @@ package com.battlegroundspvp.global.commands;
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
-import com.battlegroundspvp.utils.enums.EventSound;
+import com.battlegroundspvp.util.enums.EventSound;
 import com.battlegroundspvp.worldpvp.utils.npcs.QuartermasterTrait;
 import lombok.Getter;
 import net.citizensnpcs.api.CitizensAPI;

@@ -1,7 +1,7 @@
 package com.battlegroundspvp.worldpvp.utils.teams;
 
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.messages.TextComponentMessages;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.message.TextComponentMessages;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.entity.Player;
 

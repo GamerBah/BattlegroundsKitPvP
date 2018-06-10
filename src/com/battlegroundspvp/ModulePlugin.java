@@ -19,10 +19,10 @@ import com.battlegroundspvp.global.cosmetics.rare.gores.CloudGore;
 import com.battlegroundspvp.global.cosmetics.rare.warcries.AnvilWarcry;
 import com.battlegroundspvp.global.cosmetics.rare.warcries.HappyPiggyWarcry;
 import com.battlegroundspvp.global.listeners.CombatListener;
-import com.battlegroundspvp.utils.cosmetics.Cosmetic;
-import com.battlegroundspvp.utils.cosmetics.Gore;
-import com.battlegroundspvp.utils.cosmetics.ParticlePack;
-import com.battlegroundspvp.utils.cosmetics.Warcry;
+import com.battlegroundspvp.util.cosmetic.Cosmetic;
+import com.battlegroundspvp.util.cosmetic.Gore;
+import com.battlegroundspvp.util.cosmetic.ParticlePack;
+import com.battlegroundspvp.util.cosmetic.Warcry;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
 import com.battlegroundspvp.worldpvp.playerevents.PlayerCloseInventory;
@@ -42,6 +42,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class ModulePlugin extends BattleModule {
+
+    public ModulePlugin() {
+        super("Battlegrounds KitPvP", BattlegroundsKitPvP.getInstance());
+    }
 
     @Override
     public Gore getActiveGore(Player player) {

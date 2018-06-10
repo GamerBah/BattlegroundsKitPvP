@@ -276,10 +276,10 @@ public class PluginUtil {
             pluginManager.disablePlugin(plugin);
         }
 
-        if (plugins != null && plugins.contains(plugin))
+        if (plugins != null)
             plugins.remove(plugin);
 
-        if (names != null && names.containsKey(name))
+        if (names != null)
             names.remove(name);
 
         if (listeners != null) {
@@ -314,7 +314,7 @@ public class PluginUtil {
             try {
                 ((URLClassLoader) cl).close();
             } catch (IOException ex) {
-                Logger.getLogger(com.battlegroundspvp.utils.PluginUtil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PluginUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

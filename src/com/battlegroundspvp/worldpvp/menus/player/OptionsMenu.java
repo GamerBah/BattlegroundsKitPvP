@@ -3,9 +3,9 @@ package com.battlegroundspvp.worldpvp.menus.player;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
-import com.battlegroundspvp.utils.inventories.GameInventory;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.GameInventory;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -19,12 +19,12 @@ public class OptionsMenu extends GameInventory {
         GameProfile playerData = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         GameProfile targetData = BattlegroundsCore.getInstance().getGameProfile(target.getUniqueId());
         addButton(11, new ItemBuilder(Material.BARRIER)
-                .name(new ColorBuilder(ChatColor.RED).bold().create() + "Report Player"));
+                .name(new MessageBuilder(ChatColor.RED).bold().create() + "Report Player"));
         addButton(13, new ItemBuilder(Material.FEATHER)
-                .name(new ColorBuilder(ChatColor.GREEN).bold().create() + "Send a Private Message")
+                .name(new MessageBuilder(ChatColor.GREEN).bold().create() + "Send a Private Message")
                 .lore(ChatColor.GRAY + "Use " + ChatColor.RED + "/msg " + target.getName() + " <message> " + ChatColor.GRAY + "to send your message!"));
         addButton(15, new ItemBuilder(Material.DIAMOND_SWORD).flag(ItemFlag.HIDE_ATTRIBUTES).enchantment(Enchantment.DIG_SPEED, 2)
-                .name(new ColorBuilder(ChatColor.AQUA).bold().create() + "Send a Team Request"));
+                .name(new MessageBuilder(ChatColor.AQUA).bold().create() + "Send a Team Request"));
     }
 
 }

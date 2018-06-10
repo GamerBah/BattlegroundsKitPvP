@@ -4,11 +4,11 @@ package com.battlegroundspvp.worldpvp.kits.legendary;
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.runnables.UpdateRunnable;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.runnable.misc.UpdateRunnable;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -63,12 +63,12 @@ public class Ninja extends Kit {
 
                     kitAbility.getStatus(player).setAbilityIsOver(false);
                     for (Player players : Bukkit.getServer().getOnlinePlayers()) {
-                        players.hidePlayer(player);
+                        players.hidePlayer(BattlegroundsKitPvP.getInstance(), player);
                         Bukkit.getServer().getScheduler().runTaskLater(BattlegroundsKitPvP.getInstance(), () -> {
                             if (KitAbility.getPlayerStatus().containsKey(player)) {
                                 ParticleEffect.SMOKE_LARGE.display(0.3F, 0.5F, 0.3F, 0, 70, player.getLocation().add(0, 0.5, 0), 35);
                                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERDRAGON_FLAP, 0.5F, 1.3F);
-                                players.showPlayer(player);
+                                players.showPlayer(BattlegroundsKitPvP.getInstance(), player);
                                 kitAbility.getStatus(player).setAbilityIsOver(true);
                             }
                         }, 100L);
@@ -103,13 +103,13 @@ public class Ninja extends Kit {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
 
-        player.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Hood").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shirt").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Pants").enchantment(Enchantment.THORNS, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shoes").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Hood").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shirt").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Pants").enchantment(Enchantment.THORNS, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Shoes").color(Color.BLACK).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
         ItemStack potato = new ItemStack(new ItemBuilder(Material.IRON_SWORD).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE)
-                .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Dagger"));
+                .name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ninja Dagger"));
 
         player.getInventory().addItem(potato);
     }

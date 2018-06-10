@@ -4,21 +4,21 @@ package com.battlegroundspvp.worldpvp.menus.player;
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
-import com.battlegroundspvp.utils.cosmetics.Cosmetic;
-import com.battlegroundspvp.utils.cosmetics.Gore;
-import com.battlegroundspvp.utils.cosmetics.ParticlePack;
-import com.battlegroundspvp.utils.cosmetics.Warcry;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ClickEvent;
-import com.battlegroundspvp.utils.inventories.GameInventory;
-import com.battlegroundspvp.utils.inventories.InventoryBuilder;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.cosmetic.Cosmetic;
+import com.battlegroundspvp.util.cosmetic.Gore;
+import com.battlegroundspvp.util.cosmetic.ParticlePack;
+import com.battlegroundspvp.util.cosmetic.Warcry;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.menus.cosmetics.GoreMenu;
 import com.battlegroundspvp.worldpvp.menus.cosmetics.TrailMenu;
 import com.battlegroundspvp.worldpvp.menus.cosmetics.WarcryMenu;
 import com.battlegroundspvp.worldpvp.utils.KDRatio;
+import com.gamerbah.inventorytoolkit.ClickEvent;
+import com.gamerbah.inventorytoolkit.GameInventory;
+import com.gamerbah.inventorytoolkit.InventoryBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -73,37 +73,37 @@ public class ProfileMenu extends GameInventory {
         addButton(10, new ItemBuilder(Material.DIAMOND_SWORD)
                 .name(ChatColor.AQUA + "Warcries")
                 .lore(ChatColor.GRAY + "Make sure your kills are heard!").flag(ItemFlag.HIDE_ATTRIBUTES)
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     new InventoryBuilder(player, new WarcryMenu(player)).open();
                     EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                 })));
         addButton(11, new ItemBuilder(Material.GLOWSTONE_DUST)
                 .name(ChatColor.AQUA + "Gores")
                 .lore(ChatColor.GRAY + "Effects for your kills!")
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     new InventoryBuilder(player, new GoreMenu(player)).open();
                     EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                 })));
         addButton(12, new ItemBuilder(Material.MAGMA_CREAM)
                 .name(ChatColor.AQUA + "Particle Packs")
                 .lore(ChatColor.GRAY + "Select cool trails to show off!")
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     new InventoryBuilder(player, new TrailMenu(player)).open();
                     EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                 })));
         addButton(13, head);
         addButton(14, new ItemBuilder(Material.EMERALD)
-                .name(new ColorBuilder(ChatColor.RED).bold().create() + "COMING SOON! " + ChatColor.GREEN + "Social Menu")
+                .name(new MessageBuilder(ChatColor.RED).bold().create() + "COMING SOON! " + ChatColor.GREEN + "Social Menu")
                 .lore(ChatColor.GRAY + "Opens the Social Menu!")
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     //new InventoryBuilder(player, new SocialMenu(player)).open();
                     EventSound.playSound(player, EventSound.ACTION_FAIL);
                 })));
         addButton(15, new ItemBuilder(Material.DIAMOND)
-                .name(new ColorBuilder(ChatColor.RED).bold().create() + "COMING SOON! " + ChatColor.YELLOW + "Daily Challenges")
+                .name(new MessageBuilder(ChatColor.RED).bold().create() + "COMING SOON! " + ChatColor.YELLOW + "Daily Challenges")
                 .lore(ChatColor.GRAY + "View the daily challenges, start")
                 .lore(ChatColor.GRAY + "new ones, and receive rewards!")
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     //new InventoryBuilder(player, new ChallengeMenu(player)).open();
                     EventSound.playSound(player, EventSound.ACTION_FAIL);
                 })));
@@ -113,7 +113,7 @@ public class ProfileMenu extends GameInventory {
                 .lore(amount == 0 ? ChatColor.GRAY + "You don't have Battle Essence!" : ChatColor.GRAY + "You have " + ChatColor.AQUA + amount + ChatColor.GRAY + " Battle "
                         + (amount == 1 ? "Essence" : "Essences")).lore(" ").lore(ChatColor.GRAY + "Purchase Battle Essences at our store!")
                 .lore(ChatColor.YELLOW + "store.battlegroundspvp.com")
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     if (amount != 0) {
                         new InventoryBuilder(player, new EssenceMenu(player)).open();
                         EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);

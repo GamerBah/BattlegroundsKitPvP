@@ -3,11 +3,15 @@ package com.battlegroundspvp.worldpvp.menus.player;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
-import com.battlegroundspvp.administration.donations.DonationMessages;
-import com.battlegroundspvp.administration.donations.Essence;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.inventories.*;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.administration.donation.DonationMessages;
+import com.battlegroundspvp.administration.donation.Essence;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.gui.InventoryItems;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ClickEvent;
+import com.gamerbah.inventorytoolkit.GameInventory;
+import com.gamerbah.inventorytoolkit.InventoryBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -27,19 +31,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "1 Hour" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -53,19 +57,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "1 Hour" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -79,19 +83,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "1 Hour" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -106,19 +110,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "3 Hours" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -132,19 +136,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "3 Hours" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -158,19 +162,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "3 Hours" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -185,19 +189,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "6 Hours" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -211,19 +215,19 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "6 Hours" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
@@ -237,26 +241,26 @@ public class EssenceMenu extends GameInventory {
                         .lore(ChatColor.GRAY + "the amount of Souls and Battle Coins players")
                         .lore(ChatColor.GRAY + "receive when they kill another player").lore(" ")
                         .lore(ChatColor.GRAY + "Lasts for " + ChatColor.RED + "6 Hours" + ChatColor.GRAY + " upon activation").lore(" ")
-                        .lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ACTIVATE!")
+                        .onClick(new ClickEvent(() -> {
                             if (!BattlegroundsCore.getInstance().getConfig().getBoolean("essenceActive")) {
                                 Essence e = new Essence();
                                 e.activateEssence(player, essence);
                                 player.closeInventory();
                                 player.sendMessage(ChatColor.YELLOW + "You activated your " + essence.getDisplayName(true) + ChatColor.YELLOW + " Battle Essence! Enjoy!");
-                                player.sendMessage(new ColorBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
+                                player.sendMessage(new MessageBuilder(ChatColor.GREEN).bold().create() + "Thanks again for the purchase!");
                                 DonationMessages donationMessages = new DonationMessages(BattlegroundsCore.getInstance());
                                 donationMessages.sendEssenceActivationMessage(Essence.fromId(essence.getId()), player);
                             } else {
                                 player.closeInventory();
-                                player.sendMessage(new ColorBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
+                                player.sendMessage(new MessageBuilder(ChatColor.RED).bold().create() + "Sorry! " + ChatColor.GRAY + "Someone already has an active Battle Essence!");
                                 EventSound.playSound(player, EventSound.ACTION_FAIL);
                             }
                         })));
             }
         }
         addButton(49, InventoryItems.back.clone()
-                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                .onClick(new ClickEvent(() -> {
                     new InventoryBuilder(player, getPreviousInventory()).open();
                     EventSound.playSound(player, EventSound.INVENTORY_GO_BACK);
                 })));

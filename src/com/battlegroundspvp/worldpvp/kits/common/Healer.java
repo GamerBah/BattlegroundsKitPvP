@@ -2,8 +2,8 @@ package com.battlegroundspvp.worldpvp.kits.common;
 /* Created by GamerBah on 2/23/2018 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

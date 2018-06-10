@@ -1,13 +1,13 @@
 package com.battlegroundspvp.global.utils.kits;
 
 import com.battlegroundspvp.BattlegroundsCore;
-import com.battlegroundspvp.administration.commands.FreezeCommand;
+import com.battlegroundspvp.administration.command.FreezeCommand;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.enums.Rarity;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import lombok.Data;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;

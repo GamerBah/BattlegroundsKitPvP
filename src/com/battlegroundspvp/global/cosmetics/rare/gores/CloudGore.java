@@ -1,10 +1,10 @@
 package com.battlegroundspvp.global.cosmetics.rare.gores;
 /* Created by GamerBah on 10/30/2017 */
 
-import com.battlegroundspvp.utils.cosmetics.Gore;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.cosmetic.Gore;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -18,7 +18,7 @@ public class CloudGore extends Gore {
                 new ItemBuilder(Material.INK_SACK)
                         .durability(15)
                         .name(ChatColor.BLUE + "Cloud")
-                        .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "Light, fluffy, and dead!"), Rarity.RARE, ServerType.KITPVP);
+                        .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "Light, fluffy, and dead!"), Rarity.RARE, ServerType.KITPVP);
     }
 
     @Override

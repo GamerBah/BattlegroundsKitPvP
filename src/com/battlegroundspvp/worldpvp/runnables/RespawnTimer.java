@@ -3,7 +3,7 @@ package com.battlegroundspvp.worldpvp.runnables;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.enums.EventSound;
+import com.battlegroundspvp.util.enums.EventSound;
 import de.Herbystar.TTA.TTA_Methods;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;

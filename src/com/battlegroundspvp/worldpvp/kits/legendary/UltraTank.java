@@ -2,9 +2,9 @@ package com.battlegroundspvp.worldpvp.kits.legendary;
 /* Created by GamerBah on 8/19/2016 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -39,12 +39,12 @@ public class UltraTank extends Kit {
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1, false, false));
 
-        player.getInventory().setHelmet(new ItemBuilder(Material.DIAMOND_HELMET).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Chestplate").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setChestplate(new ItemBuilder(Material.DIAMOND_CHESTPLATE).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Chestplate").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setLeggings(new ItemBuilder(Material.DIAMOND_LEGGINGS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Leggings").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setBoots(new ItemBuilder(Material.DIAMOND_BOOTS).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Boots").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setHelmet(new ItemBuilder(Material.DIAMOND_HELMET).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Chestplate").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setChestplate(new ItemBuilder(Material.DIAMOND_CHESTPLATE).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Chestplate").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setLeggings(new ItemBuilder(Material.DIAMOND_LEGGINGS).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Leggings").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setBoots(new ItemBuilder(Material.DIAMOND_BOOTS).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Boots").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
-        ItemStack sword = new ItemStack(new ItemBuilder(Material.WOOD_SWORD).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Sword").enchantment(Enchantment.DAMAGE_ALL, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack sword = new ItemStack(new ItemBuilder(Material.WOOD_SWORD).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Ultra Tank Sword").enchantment(Enchantment.DAMAGE_ALL, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
         player.getInventory().addItem(sword);
     }

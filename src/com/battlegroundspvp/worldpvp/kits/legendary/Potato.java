@@ -2,9 +2,9 @@ package com.battlegroundspvp.worldpvp.kits.legendary;
 /* Created by GamerBah on 9/7/2016 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -36,12 +36,12 @@ public class Potato extends Kit {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 2, true, false));
 
-        player.getInventory().setHelmet(new ItemBuilder(Material.POTATO_ITEM).name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6));
+        player.getInventory().setHelmet(new ItemBuilder(Material.POTATO_ITEM).name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato Helmet").enchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 6));
 
         ItemStack potato = new ItemStack(new ItemBuilder(Material.POTATO_ITEM).enchantment(Enchantment.DAMAGE_ALL, 5)
-                .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato"));
+                .name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Potato"));
         ItemStack poisonPotato = new ItemStack(new ItemBuilder(Material.POISONOUS_POTATO).enchantment(Enchantment.ARROW_INFINITE).flag(ItemFlag.HIDE_ENCHANTS)
-                .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Poisonous Potato")
+                .name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Poisonous Potato")
                 .lore(ChatColor.GRAY + "Poison III").lore(" ")
                 .lore(ChatColor.GRAY + "Inflicts those you").lore(ChatColor.GRAY + "hit with Poison III"));
 

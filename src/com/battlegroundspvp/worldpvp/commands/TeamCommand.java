@@ -3,7 +3,7 @@ package com.battlegroundspvp.worldpvp.commands;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.enums.EventSound;
+import com.battlegroundspvp.util.enums.EventSound;
 import com.battlegroundspvp.worldpvp.utils.teams.TeamMessages;
 import com.battlegroundspvp.worldpvp.utils.teams.TeamUtils;
 import net.md_5.bungee.api.ChatColor;

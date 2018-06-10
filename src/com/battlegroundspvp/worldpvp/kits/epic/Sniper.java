@@ -2,9 +2,9 @@ package com.battlegroundspvp.worldpvp.kits.epic;
 /* Created by GamerBah on 8/27/2016 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -36,13 +36,13 @@ public class Sniper extends Kit {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
 
-        player.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Sniper Helmet").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Sniper Chainmail").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Sniper Leggings").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setBoots(new ItemBuilder(Material.CHAINMAIL_BOOTS).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Sniper Boots").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setHelmet(new ItemBuilder(Material.CHAINMAIL_HELMET).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Sniper Helmet").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setChestplate(new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Sniper Chainmail").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setLeggings(new ItemBuilder(Material.CHAINMAIL_LEGGINGS).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Sniper Leggings").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setBoots(new ItemBuilder(Material.CHAINMAIL_BOOTS).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Sniper Boots").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
-        ItemStack bow = new ItemStack(new ItemBuilder(Material.BOW).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Sniper Bow").enchantment(Enchantment.ARROW_DAMAGE, 2).enchantment(Enchantment.ARROW_INFINITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        ItemStack sword = new ItemStack(new ItemBuilder(Material.STONE_SWORD).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Sniper Sword").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack bow = new ItemStack(new ItemBuilder(Material.BOW).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Sniper Bow").enchantment(Enchantment.ARROW_DAMAGE, 2).enchantment(Enchantment.ARROW_INFINITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack sword = new ItemStack(new ItemBuilder(Material.STONE_SWORD).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Sniper Sword").unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
         player.getInventory().addItem(bow);
         player.getInventory().addItem(sword);

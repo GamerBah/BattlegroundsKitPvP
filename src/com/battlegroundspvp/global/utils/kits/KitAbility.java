@@ -2,7 +2,7 @@ package com.battlegroundspvp.global.utils.kits;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import de.Herbystar.TTA.TTA_Methods;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
@@ -137,7 +137,7 @@ public class KitAbility {
                 if (playerStatus.containsKey(player)) {
                     checkStatus(player, status);
                     BattlegroundsCore.clearTitle(player);
-                    TTA_Methods.sendTitle(player, null, 5, 25, 7, new ColorBuilder(ChatColor.GREEN).bold().create() + "\u21d1 ABILITY RECHARGED! \u21d1", 5, 25, 7);
+                    TTA_Methods.sendTitle(player, null, 5, 25, 7, new MessageBuilder(ChatColor.GREEN).bold().create() + "\u21d1 ABILITY RECHARGED! \u21d1", 5, 25, 7);
                     player.playSound(player.getLocation(), Sound.BLOCK_LEVER_CLICK, 2F, 0.3F);
                     player.playSound(player.getLocation(), Sound.BLOCK_BREWING_STAND_BREW, 2F, 1.3F);
                     player.setExp(0F);

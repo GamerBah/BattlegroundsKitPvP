@@ -1,7 +1,6 @@
 package com.battlegroundspvp.worldpvp.utils;
 /* Created by GamerBah on 8/20/2016 */
 
-
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;

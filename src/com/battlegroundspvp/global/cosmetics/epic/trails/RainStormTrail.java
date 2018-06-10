@@ -3,11 +3,11 @@ package com.battlegroundspvp.global.cosmetics.epic.trails;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.runnables.TrailRunnable;
-import com.battlegroundspvp.utils.cosmetics.ParticlePack;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.runnable.game.TrailRunnable;
+import com.battlegroundspvp.util.cosmetic.ParticlePack;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -17,9 +17,9 @@ import org.bukkit.entity.Player;
 public class RainStormTrail extends ParticlePack {
 
     public RainStormTrail() {
-        super(321, new ColorBuilder(ChatColor.GOLD).bold().create() + "Rain Storm",
+        super(321, new MessageBuilder(ChatColor.GOLD).bold().create() + "Rain Storm",
                 new ItemBuilder(Material.WATER_BUCKET)
-                        .name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Rain Storm")
+                        .name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Rain Storm")
                         .lore(ChatColor.YELLOW + "Idle Effect: " + ChatColor.GRAY + "Clouds and dripping water")
                         .lore(ChatColor.YELLOW + "Moving Effect: " + ChatColor.GRAY + "Water splashing and dripping"),
                 Rarity.EPIC, ServerType.KITPVP, 2L);

@@ -3,7 +3,7 @@ package com.battlegroundspvp.worldpvp.commands;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.utils.enums.EventSound;
+import com.battlegroundspvp.util.enums.EventSound;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.playerevents.PlayerMove;
 import net.md_5.bungee.api.ChatColor;
@@ -31,9 +31,7 @@ public class SpawnCommand implements CommandExecutor {
         if (KitManager.isPlayerInKit(player)) {
             KitManager.getPreviousKit().put(player.getUniqueId(), KitManager.getPlayersInKits().get(player.getUniqueId()));
         }
-        if (PlayerMove.getLaunched().contains(player)) {
-            PlayerMove.getLaunched().remove(player);
-        }
+        PlayerMove.getLaunched().remove(player);
         if (BattlegroundsKitPvP.getAfk().contains(player.getUniqueId())) {
             BattlegroundsKitPvP.getAfk().remove(player.getUniqueId());
             player.sendMessage(ChatColor.GRAY + "You are no longer AFK");

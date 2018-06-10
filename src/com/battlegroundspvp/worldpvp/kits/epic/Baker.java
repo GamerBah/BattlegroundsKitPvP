@@ -2,9 +2,9 @@ package com.battlegroundspvp.worldpvp.kits.epic;
 /* Created by GamerBah on 9/7/2016 */
 
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -37,13 +37,13 @@ public class Baker extends Kit {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, true, false));
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 1, true, false));
 
-        player.getInventory().setHelmet(new ItemBuilder(Material.LEATHER_HELMET).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Baker's Hat").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Baker's Shirt").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setLeggings(new ItemBuilder(Material.LEATHER_LEGGINGS).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Baker's Pants").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Baker's Shoes").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setHelmet(new ItemBuilder(Material.LEATHER_HELMET).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Baker's Hat").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setChestplate(new ItemBuilder(Material.LEATHER_CHESTPLATE).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Baker's Shirt").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setLeggings(new ItemBuilder(Material.LEATHER_LEGGINGS).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Baker's Pants").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        player.getInventory().setBoots(new ItemBuilder(Material.LEATHER_BOOTS).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Baker's Shoes").color(Color.WHITE).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
-        ItemStack stick = new ItemStack(new ItemBuilder(Material.STICK).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Rolling Pin").enchantment(Enchantment.DAMAGE_ALL, 6).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
-        ItemStack bread = new ItemStack(new ItemBuilder(Material.BREAD).name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Knockbaguette").enchantment(Enchantment.KNOCKBACK, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack stick = new ItemStack(new ItemBuilder(Material.STICK).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Rolling Pin").enchantment(Enchantment.DAMAGE_ALL, 6).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
+        ItemStack bread = new ItemStack(new ItemBuilder(Material.BREAD).name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Knockbaguette").enchantment(Enchantment.KNOCKBACK, 2).unbreakable().flag(ItemFlag.HIDE_ATTRIBUTES).flag(ItemFlag.HIDE_UNBREAKABLE));
 
         player.getInventory().addItem(stick);
         player.getInventory().addItem(bread);

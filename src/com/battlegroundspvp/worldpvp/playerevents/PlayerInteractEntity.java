@@ -2,10 +2,10 @@ package com.battlegroundspvp.worldpvp.playerevents;
 /* Created by GamerBah on 10/14/2017 */
 
 import com.battlegroundspvp.global.commands.NPCCommand;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.inventories.InventoryBuilder;
+import com.battlegroundspvp.util.enums.EventSound;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.menus.QuartermasterMenus;
+import com.gamerbah.inventorytoolkit.InventoryBuilder;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import org.bukkit.ChatColor;

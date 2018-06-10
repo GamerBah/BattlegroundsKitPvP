@@ -3,11 +3,11 @@ package com.battlegroundspvp.worldpvp.playerevents;
 
 import com.battlegroundspvp.global.utils.kits.Kit;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -28,17 +28,16 @@ public class PlayerRespawn {
         if (!WorldPvP.getNoFall().contains(player))
             WorldPvP.getNoFall().add(player);
 
-        if (KitAbility.getPlayerStatus().containsKey(player))
-            KitAbility.getPlayerStatus().remove(player);
+        KitAbility.getPlayerStatus().remove(player);
 
         player.getInventory().setItem(0, new ItemBuilder(Material.NETHER_STAR)
-                .name(new ColorBuilder(ChatColor.AQUA).bold().create() + "Kit Selector" + ChatColor.GRAY + " (Right-Click)")
+                .name(new MessageBuilder(ChatColor.AQUA).bold().create() + "Kit Selector" + ChatColor.GRAY + " (Right-Click)")
                 .lore(ChatColor.GRAY + "Choose which kit you'll use!"));
 
         if (KitManager.getPreviousKit().containsKey(player.getUniqueId())) {
             Kit kit = KitManager.getPreviousKit().get(player.getUniqueId());
             player.getInventory().setItem(1, new ItemBuilder(Material.BOOK)
-                    .name(new ColorBuilder(ChatColor.GREEN).bold().create() + "Previous Kit: " + kit.getRarity().getColor() + (kit.getRarity() == Rarity.EPIC || kit.getRarity() == Rarity.LEGENDARY ?
+                    .name(new MessageBuilder(ChatColor.GREEN).bold().create() + "Previous Kit: " + kit.getRarity().getColor() + (kit.getRarity() == Rarity.EPIC || kit.getRarity() == Rarity.LEGENDARY ?
                             "" + ChatColor.BOLD : "") + kit.getName() + ChatColor.GRAY + " (Right-Click)")
                     .lore(ChatColor.GRAY + "Equips your previous kit"));
         }

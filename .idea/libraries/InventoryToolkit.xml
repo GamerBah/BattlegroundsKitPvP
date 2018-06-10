@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="InventoryToolkit">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Compiled Plugins/InventoryToolkit.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

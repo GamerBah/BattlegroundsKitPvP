@@ -4,8 +4,8 @@ import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
-import com.battlegroundspvp.runnables.UpdateRunnable;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.runnable.misc.UpdateRunnable;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.WorldPvP;
 import com.battlegroundspvp.worldpvp.commands.SpectateCommand;
 import de.Herbystar.TTA.TTA_Methods;
@@ -182,9 +182,9 @@ public class CombatListener implements Listener {
                     health = (((int) damaged.getHealth()) / 2) + ".5";
                 }
 
-                TTA_Methods.sendTitle(damager, null, 0, 0, 0, new ColorBuilder(ChatColor.YELLOW).bold().create() + damaged.getName()
-                        + new ColorBuilder(ChatColor.GRAY).bold().create() + " \u00BB " + new ColorBuilder(ChatColor.WHITE).bold().create() + health
-                        + new ColorBuilder(ChatColor.RED).bold().create() + " \u2764", 0, 0, 0);
+                TTA_Methods.sendTitle(damager, null, 0, 0, 0, new MessageBuilder(ChatColor.YELLOW).bold().create() + damaged.getName()
+                        + new MessageBuilder(ChatColor.GRAY).bold().create() + " \u00BB " + new MessageBuilder(ChatColor.WHITE).bold().create() + health
+                        + new MessageBuilder(ChatColor.RED).bold().create() + " \u2764", 0, 0, 0);
 
                 checkTagged(damaged, damager);
                 checkTagged(damager, damaged);

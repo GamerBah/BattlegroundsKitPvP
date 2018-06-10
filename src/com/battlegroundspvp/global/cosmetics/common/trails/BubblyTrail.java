@@ -2,9 +2,9 @@ package com.battlegroundspvp.global.cosmetics.common.trails;
 /* Created by GamerBah on 10/27/2017 */
 
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.utils.cosmetics.ParticlePack;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
+import com.battlegroundspvp.util.cosmetic.ParticlePack;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;

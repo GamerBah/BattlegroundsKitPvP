@@ -1,10 +1,10 @@
 package com.battlegroundspvp.global.cosmetics.legendary.warcries;
 /* Created by GamerBah on 10/30/2017 */
 
-import com.battlegroundspvp.utils.cosmetics.Warcry;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.cosmetic.Warcry;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,10 +14,10 @@ import org.bukkit.entity.Player;
 public class MeowWarcry extends Warcry {
 
     public MeowWarcry() {
-        super(440, new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Meow",
+        super(440, new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Meow",
                 new ItemBuilder(Material.DIAMOND)
-                        .name(new ColorBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Meow")
-                        .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "Meooowwww!"), Rarity.LEGENDARY, ServerType.KITPVP);
+                        .name(new MessageBuilder(ChatColor.LIGHT_PURPLE).bold().create() + "Meow")
+                        .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "Meooowwww!"), Rarity.LEGENDARY, ServerType.KITPVP);
     }
 
     @Override

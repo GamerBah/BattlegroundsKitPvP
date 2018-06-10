@@ -1,9 +1,6 @@
 package com.battlegroundspvp.worldpvp.listeners;
 
-import com.battlegroundspvp.BattlegroundsCore;
 import org.bukkit.Location;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,9 +58,9 @@ public class SpawnProtectListener implements Listener {
             entity.remove();
             return;
         }
-        if (entity instanceof Arrow)
+        /*if (entity instanceof Arrow)
             BattlegroundsCore.getInstance().getGlobalStats().setTotalArrowsFired(BattlegroundsCore.getInstance().getGlobalStats().getTotalArrowsFired() + 1);
         if (entity instanceof EnderPearl)
-            BattlegroundsCore.getInstance().getGlobalStats().setTotalEnderpearlsThrown(BattlegroundsCore.getInstance().getGlobalStats().getTotalEnderpearlsThrown() + 1);
+            BattlegroundsCore.getInstance().getGlobalStats().setTotalEnderpearlsThrown(BattlegroundsCore.getInstance().getGlobalStats().getTotalEnderpearlsThrown() + 1);*/
     }
 }

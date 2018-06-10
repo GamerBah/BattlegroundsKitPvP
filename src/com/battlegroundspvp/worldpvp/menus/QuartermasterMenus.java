@@ -5,14 +5,19 @@ import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.administration.data.Rank;
 import com.battlegroundspvp.global.utils.kits.Kit;
-import com.battlegroundspvp.utils.enums.EventSound;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.*;
-import com.battlegroundspvp.utils.inventories.sortingtypes.RaritySort;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.enums.EventSound;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.gui.ConfirmationMenu;
+import com.battlegroundspvp.util.gui.InventoryItems;
+import com.battlegroundspvp.util.gui.sort.RaritySort;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.kits.KitManager;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
 import com.battlegroundspvp.worldpvp.runnables.KitRollRunnable;
+import com.gamerbah.inventorytoolkit.ClickEvent;
+import com.gamerbah.inventorytoolkit.GameInventory;
+import com.gamerbah.inventorytoolkit.InventoryBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -30,21 +35,21 @@ public class QuartermasterMenus {
             super("Quartermaster", 27, null);
             GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
             addButton(12, new ItemBuilder(Material.DIAMOND)
-                    .name(new ColorBuilder(ChatColor.GREEN).bold().create() + "Buy Kits")
+                    .name(new MessageBuilder(ChatColor.GREEN).bold().create() + "Buy Kits")
                     .lore(ChatColor.GRAY + "Purchase a random kit")
                     .lore(ChatColor.GRAY + "from the Quartermaster")
                     .lore(ChatColor.GRAY + "for " + ChatColor.AQUA + "150 Souls" + ChatColor.GRAY + " each")
                     .lore("").lore(ChatColor.GRAY + "You have " + ChatColor.AQUA + gameProfile.getKitPvpData().getSouls() + " Souls")
-                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                    .onClick(new ClickEvent(() -> {
                         new InventoryBuilder(player, new SlotSelectionMenu(player)).open();
                         EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                     })));
             addButton(14, new ItemBuilder(Material.CHEST)
-                    .name(new ColorBuilder(ChatColor.YELLOW).bold().create() + "Kit Inventory")
+                    .name(new MessageBuilder(ChatColor.YELLOW).bold().create() + "Kit Inventory")
                     .lore(ChatColor.GRAY + "View duplicate kits you")
                     .lore(ChatColor.GRAY + "own and extract souls from them!")
                     .lore("").lore(ChatColor.GRAY + "You have " + ChatColor.DARK_PURPLE + gameProfile.getKitPvpData().getDuplicateKits().size() + " Duplicates")
-                    .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                    .onClick(new ClickEvent(() -> {
                         new InventoryBuilder(player, new DuplicateMenu(player)).sortItems(new RaritySort().reversed()).open();
                         EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                     })));
@@ -68,7 +73,7 @@ public class QuartermasterMenus {
             addButton(12, getSlotItem(player, 2));
             addButton(14, getSlotItem(player, 3));
             addButton(16, getSlotItem(player, 4));
-            addButton(27, InventoryItems.back.clone().clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+            addButton(27, InventoryItems.back.clone().onClick(new ClickEvent(() -> {
                 new InventoryBuilder(player, new SelectionMenu(player)).open();
                 EventSound.playSound(player, EventSound.INVENTORY_GO_BACK);
             })));
@@ -98,7 +103,7 @@ public class QuartermasterMenus {
                         + ((1 * slotAmount) - gameProfile.getKitPvpData().getSouls() > 1 ? " Souls" : " Soul") + ChatColor.RED + "!"));
             }
             if (gameProfile.getKitPvpData().getSouls() >= (1 * slotAmount) && slotAmount <= max) {
-                itemBuilder.lore("").lore(new ColorBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ROLL!").clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                itemBuilder.lore("").lore(new MessageBuilder(ChatColor.YELLOW).bold().create() + "CLICK TO ROLL!").onClick(new ClickEvent(() -> {
                     new InventoryBuilder(player, new SlotRollMenu(player, slotAmount)).open();
                     EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                     ScoreboardListener scoreboardListener = new ScoreboardListener();
@@ -106,7 +111,7 @@ public class QuartermasterMenus {
                     gameProfile.getKitPvpData().addSouls(-1 * slotAmount);
                 }));
             } else {
-                itemBuilder.clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
+                itemBuilder.onClick(new ClickEvent(() -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
             }
             return itemBuilder;
         }
@@ -117,8 +122,8 @@ public class QuartermasterMenus {
         public DuplicateMenu(Player player) {
             super("Duplicate Kits", BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getKitPvpData().getDuplicateKits().size(), 54, new SelectionMenu(player));
             setSearchRows(0, 4);
-            alterNavigation(false, false);
             setPageRow(5);
+            setBackButton(true);
             GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
             if (gameProfile.getKitPvpData().getDuplicateKits().size() == 0) {
                 addButton(22, InventoryItems.nothing.clone()
@@ -128,7 +133,7 @@ public class QuartermasterMenus {
                         .lore(ChatColor.GRAY + "the Quartermaster!")
                         .lore("")
                         .lore(ChatColor.YELLOW + "Click to buy some kits!")
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .onClick(new ClickEvent(() -> {
                             new InventoryBuilder(player, new SlotSelectionMenu(player)).open();
                             EventSound.playSound(player, EventSound.INVENTORY_OPEN_SUBMENU);
                         })));
@@ -142,7 +147,7 @@ public class QuartermasterMenus {
                                 .lore(ChatColor.YELLOW + "Right-Click" + ChatColor.GRAY + " to gift!")
                                 .flag(ItemFlag.HIDE_ATTRIBUTES)
                                 .storeObject(Rarity.class, kit.getRarity())
-                                .clickEvent(new ClickEvent(ClickEvent.Type.LEFT, () -> {
+                                .onClick(new ClickEvent(() -> {
                                     new InventoryBuilder(player, new ConfirmationMenu(() -> {
                                         int souls = ThreadLocalRandom.current().nextInt(35, 55);
                                         gameProfile.getKitPvpData().getDuplicateKits().remove(new Integer(kit.getId()));
@@ -158,15 +163,15 @@ public class QuartermasterMenus {
                                         EventSound.playSound(player, EventSound.ACTION_FAIL);
                                     }, new SelectionMenu(player))).open();
                                     EventSound.playSound(player, EventSound.COMMAND_NEEDS_CONFIRMATION);
-                                }))
-                                .clickEvent(new ClickEvent(ClickEvent.Type.RIGHT, () -> EventSound.playSound(player, EventSound.ACTION_FAIL))));
+                                }, ClickEvent.Type.LEFT))
+                                .onClick(new ClickEvent(() -> EventSound.playSound(player, EventSound.ACTION_FAIL), ClickEvent.Type.RIGHT)));
                     } else {
                         addItem(new ItemBuilder(kit.getItem())
                                 .lore(" ")
                                 .lore(ChatColor.YELLOW + "Click to salvage!")
                                 .flag(ItemFlag.HIDE_ATTRIBUTES)
                                 .storeObject(Rarity.class, kit.getRarity())
-                                .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                                .onClick(new ClickEvent(() -> {
                                     int souls = ThreadLocalRandom.current().nextInt(10, 25);
                                     gameProfile.getKitPvpData().getDuplicateKits().remove(new Integer(kit.getId()));
                                     ScoreboardListener scoreboardListener = new ScoreboardListener();
@@ -184,13 +189,13 @@ public class QuartermasterMenus {
             int rares = new Long(gameProfile.getKitPvpData().getDuplicateKits().stream().filter(i -> KitManager.fromId(i).getRarity() == Rarity.RARE).count()).intValue();
             ItemBuilder commonSalvage = new ItemBuilder(Material.CONCRETE_POWDER).durability(7)
                     .name((gameProfile.hasRank(Rank.WARRIOR) ? ChatColor.GRAY : ChatColor.RED) + "Salvage all Commons")
-                    .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "Saves you the time of having")
-                    .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "to manually salvage each kit")
-                    .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "and does it all for you!").lore(" ")
+                    .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "Saves you the time of having")
+                    .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "to manually salvage each kit")
+                    .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "and does it all for you!").lore(" ")
                     .lore(ChatColor.GRAY + "You have " + commons + " Common duplicates");
             if (commons > 0) {
                 commonSalvage.lore(" ").lore((gameProfile.hasRank(Rank.WARRIOR) ? ChatColor.YELLOW + "Click to salvage!" : Rank.WARRIOR.getName() + ChatColor.RED + " rank required!"))
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .onClick(new ClickEvent(() -> {
                             new InventoryBuilder(player,
                                     new ConfirmationMenu(() -> {
                                         int souls = 0;
@@ -215,18 +220,18 @@ public class QuartermasterMenus {
                             EventSound.playSound(player, EventSound.COMMAND_NEEDS_CONFIRMATION);
                         }));
             } else {
-                commonSalvage.clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
+                commonSalvage.onClick(new ClickEvent(() -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
             }
 
             ItemBuilder rareSalvage = new ItemBuilder(Material.CONCRETE_POWDER).durability(11)
                     .name((gameProfile.hasRank(Rank.WARRIOR) ? ChatColor.BLUE : ChatColor.RED) + "Salvage all Rares")
-                    .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "Saves you the time of having")
-                    .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "to manually salvage each kit")
-                    .lore(new ColorBuilder(ChatColor.GRAY).italic().create() + "and does it all for you!").lore(" ")
+                    .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "Saves you the time of having")
+                    .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "to manually salvage each kit")
+                    .lore(new MessageBuilder(ChatColor.GRAY).italic().create() + "and does it all for you!").lore(" ")
                     .lore(ChatColor.GRAY + "You have " + ChatColor.BLUE + rares + ChatColor.GRAY + " Rare duplicates");
             if (rares > 0) {
                 rareSalvage.lore(" ").lore((gameProfile.hasRank(Rank.WARRIOR) ? ChatColor.YELLOW + "Click to salvage!" : Rank.WARRIOR.getName() + ChatColor.RED + " rank required!"))
-                        .clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> {
+                        .onClick(new ClickEvent(() -> {
                             new InventoryBuilder(player,
                                     new ConfirmationMenu(() -> {
                                         int souls = 0;
@@ -251,7 +256,7 @@ public class QuartermasterMenus {
                             EventSound.playSound(player, EventSound.COMMAND_NEEDS_CONFIRMATION);
                         }));
             } else {
-                rareSalvage.clickEvent(new ClickEvent(ClickEvent.Type.ANY, () -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
+                rareSalvage.onClick(new ClickEvent(() -> EventSound.playSound(player, EventSound.ACTION_FAIL)));
             }
             addButton(50, commonSalvage);
             addButton(51, rareSalvage);

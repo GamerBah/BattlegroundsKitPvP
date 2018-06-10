@@ -3,11 +3,11 @@ package com.battlegroundspvp.global.cosmetics.epic.trails;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.runnables.TrailRunnable;
-import com.battlegroundspvp.utils.cosmetics.ParticlePack;
-import com.battlegroundspvp.utils.enums.Rarity;
-import com.battlegroundspvp.utils.inventories.ItemBuilder;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.runnable.game.TrailRunnable;
+import com.battlegroundspvp.util.cosmetic.ParticlePack;
+import com.battlegroundspvp.util.enums.Rarity;
+import com.battlegroundspvp.util.message.MessageBuilder;
+import com.gamerbah.inventorytoolkit.ItemBuilder;
 import de.slikey.effectlib.util.ParticleEffect;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -17,9 +17,9 @@ import org.bukkit.entity.Player;
 public class LavaRainTrail extends ParticlePack {
 
     public LavaRainTrail() {
-        super(320, new ColorBuilder(ChatColor.GOLD).bold().create() + "Lava Rain",
+        super(320, new MessageBuilder(ChatColor.GOLD).bold().create() + "Lava Rain",
                 new ItemBuilder(Material.LAVA_BUCKET)
-                        .name(new ColorBuilder(ChatColor.GOLD).bold().create() + "Lava Rain")
+                        .name(new MessageBuilder(ChatColor.GOLD).bold().create() + "Lava Rain")
                         .lore(ChatColor.YELLOW + "Idle Effect: " + ChatColor.GRAY + "A cloud of smoke raining lava")
                         .lore(ChatColor.YELLOW + "Moving Effect: " + ChatColor.GRAY + "Lava splashing and dripping"),
                 Rarity.EPIC, ServerType.KITPVP, 2L);

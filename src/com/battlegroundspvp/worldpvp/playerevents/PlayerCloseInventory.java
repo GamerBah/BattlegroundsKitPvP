@@ -10,7 +10,7 @@ public class PlayerCloseInventory {
     public static void close(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
 
-        if (!WorldPvP.getRolling().containsKey(player) && WorldPvP.getRollInventory().containsKey(player))
+        if (!WorldPvP.getRolling().containsKey(player))
             WorldPvP.getRollInventory().remove(player);
     }
 

@@ -3,15 +3,15 @@ package com.battlegroundspvp.worldpvp.playerevents;
 
 import com.battlegroundspvp.BattlegroundsCore;
 import com.battlegroundspvp.BattlegroundsKitPvP;
-import com.battlegroundspvp.administration.commands.ChatCommands;
+import com.battlegroundspvp.administration.command.ChatCommands;
 import com.battlegroundspvp.administration.data.GameProfile;
 import com.battlegroundspvp.global.listeners.CombatListener;
 import com.battlegroundspvp.global.utils.kits.KitAbility;
-import com.battlegroundspvp.utils.cosmetics.Cosmetic;
-import com.battlegroundspvp.utils.cosmetics.Gore;
-import com.battlegroundspvp.utils.cosmetics.Warcry;
-import com.battlegroundspvp.utils.cosmetics.defaultcosmetics.DefaultGore;
-import com.battlegroundspvp.utils.messages.ColorBuilder;
+import com.battlegroundspvp.util.cosmetic.Cosmetic;
+import com.battlegroundspvp.util.cosmetic.Gore;
+import com.battlegroundspvp.util.cosmetic.Warcry;
+import com.battlegroundspvp.util.cosmetic.defaultcosmetics.DefaultGore;
+import com.battlegroundspvp.util.message.MessageBuilder;
 import com.battlegroundspvp.worldpvp.listeners.ScoreboardListener;
 import com.battlegroundspvp.worldpvp.runnables.RespawnTimer;
 import com.battlegroundspvp.worldpvp.utils.ComponentMessages;
@@ -57,8 +57,7 @@ public class PlayerDeath implements Listener {
         player.setGameMode(GameMode.SPECTATOR);
         player.setFlySpeed(0f);
 
-        if (KitAbility.getPlayerStatus().containsKey(player))
-            KitAbility.getPlayerStatus().remove(player);
+        KitAbility.getPlayerStatus().remove(player);
 
         CombatListener.getTagged().remove(player.getUniqueId());
         player.getInventory().setHeldItemSlot(0);
@@ -66,7 +65,7 @@ public class PlayerDeath implements Listener {
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         ScoreboardListener scoreboardListener = new ScoreboardListener();
         scoreboardListener.updateScoreboardDeaths(player, 1);
-        gameProfile.getKitPvpData().addDeath(1);
+        gameProfile.getKitPvpData().addDeath();
 
         if (killer == null) {
             ParticleEffect.LAVA.display(0, 0.2F, 0, 1, 20, player.getLocation(), 100);
@@ -110,72 +109,72 @@ public class PlayerDeath implements Listener {
                 }
             }
 
-            new RespawnTimer(player, new ColorBuilder(ChatColor.RED).bold().create() + "You died!").start();
+            new RespawnTimer(player, new MessageBuilder(ChatColor.RED).bold().create() + "You died!").start();
             if (player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.FALL) {
                 if (i == 1) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Sadly, Earth has gravity...", 5, 80, 0);
                 } else if (i == 2) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "" + ChatColor.ITALIC + "'I believe I can fly'", 5, 80, 0);
                 } else if (i == 3) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Flying is for airplanes, not people.", 5, 80, 0);
                 }
             } else if (player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.LAVA) {
                 if (i == 1) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Reminder: Lava is REALLY HOT.", 5, 80, 0);
                 } else if (i == 2) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Yea, that orange stuff? IT BURNS!", 5, 80, 0);
                 } else if (i == 3) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "That probably gave you 5th-degree burns", 5, 80, 0);
                 }
             } else if (player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.DROWNING) {
                 if (i == 1) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Did you really think you were a fish?", 5, 80, 0);
                 } else if (i == 2) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "" + ChatColor.ITALIC + "Just keep swimming, just keep swimming...", 5, 80, 0);
                 } else if (i == 3) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "There's this neat thing called air. You needed it.", 5, 80, 0);
                 }
             } else if (player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.FIRE_TICK
                     || player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.FIRE) {
                 if (i == 1) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Tip: Stop, Drop, and Roll", 5, 80, 0);
                 } else if (i == 2) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "One day, Minecraft will have fire extinguishers", 5, 80, 0);
                 } else if (i == 3) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Perfect for roasting marshmallows!", 5, 80, 0);
                 }
             } else if (player.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.VOID) {
                 if (i == 1) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "How, exactly, did you get down there?", 5, 80, 0);
                 } else if (i == 2) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Warning: The Void is not safe for people.", 5, 80, 0);
                 } else if (i == 3) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Welcome... to SPACE!", 5, 80, 0);
                 }
             } else {
                 if (i == 1) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "Looks like you need life insurance!", 5, 80, 0);
                 } else if (i == 2) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "That could've been done differently...", 5, 80, 0);
                 } else if (i == 3) {
-                    TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create()
+                    TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create()
                             + "You died!", 5, 80, 0, ChatColor.GRAY + "The point of the game is to" + ChatColor.ITALIC + "stay alive", 5, 80, 0);
                 }
             }
@@ -197,7 +196,7 @@ public class PlayerDeath implements Listener {
         warcry.onKill(killer, player);
 
         scoreboardListener.updateScoreboardKills(killer, 1);
-        killerProfile.getKitPvpData().addKill(1);
+        killerProfile.getKitPvpData().addKill();
 
         gameProfile.getKitPvpData().setLastKilledBy(killerProfile.getId());
 
@@ -234,10 +233,10 @@ public class PlayerDeath implements Listener {
             health = ChatColor.GRAY + "They had " + ChatColor.RED + (((int) killer.getHealth()) / 2) + ".5 hearts" + ChatColor.GRAY + " left";
         }
 
-        TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create() + "Killed by "
-                + new ColorBuilder(ChatColor.GOLD).bold().create() + killer.getName(), 5, 80, 0, health, 5, 80, 0);
-        new RespawnTimer(player, new ColorBuilder(ChatColor.RED).bold().create() + "Killed by "
-                + new ColorBuilder(ChatColor.GOLD).bold().create() + killer.getName()).start();
+        TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create() + "Killed by "
+                + new MessageBuilder(ChatColor.GOLD).bold().create() + killer.getName(), 5, 80, 0, health, 5, 80, 0);
+        new RespawnTimer(player, new MessageBuilder(ChatColor.RED).bold().create() + "Killed by "
+                + new MessageBuilder(ChatColor.GOLD).bold().create() + killer.getName()).start();
 
         if (killer.getName().equals(player.getName()))
             return;
@@ -270,7 +269,7 @@ public class PlayerDeath implements Listener {
             BattlegroundsKitPvP.killStreak.put(killer.getUniqueId(), BattlegroundsKitPvP.killStreak.get(killer.getUniqueId()) + 1);
             int killstreak = BattlegroundsKitPvP.killStreak.get(killer.getUniqueId());
             if (killstreak % 5 == 0) {
-                plugin.getServer().broadcastMessage(ChatColor.GOLD + killer.getName() + ChatColor.GRAY + " is on a " + new ColorBuilder(ChatColor.RED).bold().create() + killstreak + " killstreak!");
+                plugin.getServer().broadcastMessage(ChatColor.GOLD + killer.getName() + ChatColor.GRAY + " is on a " + new MessageBuilder(ChatColor.RED).bold().create() + killstreak + " killstreak!");
                 scoreboardListener.updateScoreboardSouls(killer, (souls * (killstreak / 5)));
                 scoreboardListener.updateScoreboardCoins(killer, coins);
                 killerProfile.getKitPvpData().addSouls(souls * (killstreak / 5));
@@ -279,11 +278,11 @@ public class PlayerDeath implements Listener {
                 TTA_Methods.sendActionBar(killer, ChatColor.AQUA + "[+" + souls * ((killstreak / 5) + 1) + " Souls]" + ChatColor.LIGHT_PURPLE
                         + (coins != 0 ? " [+" + coins + (coins == 1 ? " Battle Coin]" : " Battle Coins]") : "")
                         + (essence ? ChatColor.YELLOW + " [" + eOwner + "'s Essence]" : ""));
-                TTA_Methods.sendTitle(killer, new ColorBuilder(ChatColor.GREEN).bold().create() + killstreak
+                TTA_Methods.sendTitle(killer, new MessageBuilder(ChatColor.GREEN).bold().create() + killstreak
                         + " Killstreak!", 2, 20, 10, ChatColor.GRAY + "You killed " + ChatColor.RED + player.getName(), 2, 25, 10);
                 player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 2, 1);
                 if (killerProfile.getKitPvpData().getLastKilledBy() == (gameProfile.getId())) {
-                    TTA_Methods.sendTitle(killer, new ColorBuilder(ChatColor.YELLOW).bold().create() + "REVENGE!", 2, 20, 10,
+                    TTA_Methods.sendTitle(killer, new MessageBuilder(ChatColor.YELLOW).bold().create() + "REVENGE!", 2, 20, 10,
                             ChatColor.GRAY + "You killed " + ChatColor.RED + player.getName(), 2, 20, 10);
                     killerProfile.getKitPvpData().addRevengeKill();
                     killerProfile.getKitPvpData().setLastKilledBy(-1);
@@ -300,7 +299,7 @@ public class PlayerDeath implements Listener {
                     + ChatColor.LIGHT_PURPLE + (coins != 0 ? " [+" + coins + (coins == 1 ? " Battle Coin]" : " Battle Coins]") : "")
                     + (essence ? ChatColor.YELLOW + " [" + eOwner + "'s Essence]" : ""));
             if (killerProfile.getKitPvpData().getLastKilledBy() == (gameProfile.getId())) {
-                TTA_Methods.sendTitle(killer, new ColorBuilder(ChatColor.YELLOW).bold().create() + "REVENGE!", 2, 40, 10,
+                TTA_Methods.sendTitle(killer, new MessageBuilder(ChatColor.YELLOW).bold().create() + "REVENGE!", 2, 40, 10,
                         ChatColor.GRAY + "You killed " + ChatColor.RED + player.getName(), 2, 40, 10);
                 killerProfile.getKitPvpData().addRevengeKill();
                 killerProfile.getKitPvpData().setLastKilledBy(-1);
@@ -313,12 +312,12 @@ public class PlayerDeath implements Listener {
             if (BattlegroundsKitPvP.killStreak.get(player.getUniqueId()) >= 5) {
                 plugin.getServer().broadcastMessage(ChatColor.GOLD + killer.getName()
                         + ChatColor.GRAY + " ended " + ChatColor.RED + player.getName()
-                        + "'s " + ChatColor.GRAY + "killstreak of " + new ColorBuilder(ChatColor.RED).bold().create() + BattlegroundsKitPvP.killStreak.get(player.getUniqueId()) + "!");
+                        + "'s " + ChatColor.GRAY + "killstreak of " + new MessageBuilder(ChatColor.RED).bold().create() + BattlegroundsKitPvP.killStreak.get(player.getUniqueId()) + "!");
                 killerProfile.getKitPvpData().addKillstreakEnded();
 
-                TTA_Methods.sendTitle(player, new ColorBuilder(ChatColor.RED).bold().create() + "Killed by "
-                                + new ColorBuilder(ChatColor.GOLD).bold().create() + killer.getName(), 5, 60, 0,
-                        ChatColor.YELLOW + "You reached a " + new ColorBuilder(ChatColor.GOLD).bold().create() + BattlegroundsKitPvP.killStreak.get(player.getUniqueId())
+                TTA_Methods.sendTitle(player, new MessageBuilder(ChatColor.RED).bold().create() + "Killed by "
+                                + new MessageBuilder(ChatColor.GOLD).bold().create() + killer.getName(), 5, 60, 0,
+                        ChatColor.YELLOW + "You reached a " + new MessageBuilder(ChatColor.GOLD).bold().create() + BattlegroundsKitPvP.killStreak.get(player.getUniqueId())
                                 + ChatColor.YELLOW + " killstreak! Nice!", 5, 60, 0);
 
                 // TODO:
