@@ -23,6 +23,7 @@ public class GoreMenu extends GameInventory {
 
     public GoreMenu(Player player) {
         super("Gores", 36, new ProfileMenu(player));
+        setBackButton(false);
 
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
 

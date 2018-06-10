@@ -23,6 +23,7 @@ public class TrailMenu extends GameInventory {
 
     public TrailMenu(Player player) {
         super("Particle Packs", 36, new ProfileMenu(player));
+        setBackButton(false);
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
 
         for (int i = 18; i < 27; i++) {

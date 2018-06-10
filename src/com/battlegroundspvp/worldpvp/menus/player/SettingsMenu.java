@@ -20,6 +20,7 @@ public class SettingsMenu extends GameInventory {
 
     public SettingsMenu(Player player) {
         super("Settings", 27, null);
+        setBackButton(false);
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         if (!gameProfile.getPlayerSettings().isTeamRequests()) {
             addButton(11, new ItemBuilder(Material.INK_SACK).durability(8)

@@ -16,6 +16,7 @@ public class OptionsMenu extends GameInventory {
 
     public OptionsMenu(Player player, Player target) {
         super("Options for " + target.getName(), null);
+        setBackButton(false);
         GameProfile playerData = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         GameProfile targetData = BattlegroundsCore.getInstance().getGameProfile(target.getUniqueId());
         addButton(11, new ItemBuilder(Material.BARRIER)

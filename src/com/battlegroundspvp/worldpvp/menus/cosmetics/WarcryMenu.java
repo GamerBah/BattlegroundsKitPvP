@@ -23,6 +23,7 @@ public class WarcryMenu extends GameInventory {
 
     public WarcryMenu(Player player) {
         super("Warcries", 36, new ProfileMenu(player));
+        setBackButton(false);
 
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
 

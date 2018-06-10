@@ -23,8 +23,8 @@ public class KitSelectorMenu extends GameInventory {
     public KitSelectorMenu(Player player) {
         super("Kit Selector", KitManager.getKits().size(), 54);
         setSearchRows(0, 3);
-        setInlineNavigation(true);
         setBackButton(false);
+        setInlineNavigation(true);
 
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         ArrayList<Kit> owned = new ArrayList<>();

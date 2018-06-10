@@ -29,6 +29,7 @@ public class ProfileMenu extends GameInventory {
 
     public ProfileMenu(Player player) {
         super("My Profile", 27);
+        setBackButton(false);
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         KDRatio kd = new KDRatio();
         int amount = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId()).getTotalEssenceAmount();

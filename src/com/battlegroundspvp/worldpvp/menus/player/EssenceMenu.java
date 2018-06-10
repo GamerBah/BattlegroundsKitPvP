@@ -20,6 +20,7 @@ public class EssenceMenu extends GameInventory {
 
     public EssenceMenu(Player player) {
         super("Battle Essences", new ProfileMenu(player));
+        setBackButton(false);
         GameProfile gameProfile = BattlegroundsCore.getInstance().getGameProfile(player.getUniqueId());
         int oneSlot = 0, threeSlot = 18, sixSlot = 36;
 
